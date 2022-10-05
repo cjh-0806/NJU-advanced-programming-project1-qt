@@ -6,6 +6,8 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    QPixmap pix("/home/cjh/Pictures/auction.jpg");
+    ui->picLabel->setPixmap(pix);
 }
 
 Widget::~Widget()

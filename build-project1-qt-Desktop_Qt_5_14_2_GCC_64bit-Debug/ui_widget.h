@@ -23,7 +23,7 @@ class Ui_Widget
 {
 public:
     QLabel *welcomeLabel;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QPushButton *uloginButton;
     QSpacerItem *horizontalSpacer;
@@ -32,6 +32,7 @@ public:
     QPushButton *aloginButton;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *exitButton;
+    QLabel *picLabel;
 
     void setupUi(QWidget *Widget)
     {
@@ -49,13 +50,13 @@ public:
         font.setPointSize(14);
         welcomeLabel->setFont(font);
         welcomeLabel->setLayoutDirection(Qt::LeftToRight);
-        widget = new QWidget(Widget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(70, 370, 641, 121));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(Widget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(70, 410, 641, 121));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        uloginButton = new QPushButton(widget);
+        uloginButton = new QPushButton(layoutWidget);
         uloginButton->setObjectName(QString::fromUtf8("uloginButton"));
         uloginButton->setMinimumSize(QSize(95, 30));
         uloginButton->setMaximumSize(QSize(95, 30));
@@ -67,7 +68,7 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        registerButton = new QPushButton(widget);
+        registerButton = new QPushButton(layoutWidget);
         registerButton->setObjectName(QString::fromUtf8("registerButton"));
         registerButton->setFont(font);
 
@@ -77,7 +78,7 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        aloginButton = new QPushButton(widget);
+        aloginButton = new QPushButton(layoutWidget);
         aloginButton->setObjectName(QString::fromUtf8("aloginButton"));
         aloginButton->setFont(font);
 
@@ -87,12 +88,18 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_3);
 
-        exitButton = new QPushButton(widget);
+        exitButton = new QPushButton(layoutWidget);
         exitButton->setObjectName(QString::fromUtf8("exitButton"));
         exitButton->setFont(font);
 
         horizontalLayout->addWidget(exitButton);
 
+        picLabel = new QLabel(Widget);
+        picLabel->setObjectName(QString::fromUtf8("picLabel"));
+        picLabel->setGeometry(QRect(260, 190, 200, 200));
+        picLabel->setMinimumSize(QSize(200, 200));
+        picLabel->setMaximumSize(QSize(200, 200));
+        picLabel->setScaledContents(true);
 
         retranslateUi(Widget);
 
@@ -107,6 +114,7 @@ public:
         registerButton->setText(QCoreApplication::translate("Widget", "User register", nullptr));
         aloginButton->setText(QCoreApplication::translate("Widget", "Administrator login", nullptr));
         exitButton->setText(QCoreApplication::translate("Widget", "Exit", nullptr));
+        picLabel->setText(QString());
     } // retranslateUi
 
 };
