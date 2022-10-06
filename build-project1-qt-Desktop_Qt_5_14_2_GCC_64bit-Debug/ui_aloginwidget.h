@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'uloginwidget.ui'
+** Form generated from reading UI file 'aloginwidget.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_ULOGINWIDGET_H
-#define UI_ULOGINWIDGET_H
+#ifndef UI_ALOGINWIDGET_H
+#define UI_ALOGINWIDGET_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -21,7 +21,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_uloginWidget
+class Ui_aloginWidget
 {
 public:
     QWidget *layoutWidget_2;
@@ -29,26 +29,26 @@ public:
     QPushButton *commitButton;
     QSpacerItem *horizontalSpacer_5;
     QPushButton *cancelButton;
-    QLabel *label;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QLabel *usernameLabel;
-    QLineEdit *usernameLineEdit;
+    QLabel *adminnameLabel;
+    QLineEdit *adminnameLineEdit;
     QHBoxLayout *horizontalLayout_5;
     QLabel *pswdLabel;
     QLineEdit *pswdLineEdit;
+    QLabel *label;
 
-    void setupUi(QWidget *uloginWidget)
+    void setupUi(QWidget *aloginWidget)
     {
-        if (uloginWidget->objectName().isEmpty())
-            uloginWidget->setObjectName(QString::fromUtf8("uloginWidget"));
-        uloginWidget->resize(600, 450);
-        uloginWidget->setMinimumSize(QSize(600, 450));
-        uloginWidget->setMaximumSize(QSize(600, 450));
-        layoutWidget_2 = new QWidget(uloginWidget);
+        if (aloginWidget->objectName().isEmpty())
+            aloginWidget->setObjectName(QString::fromUtf8("aloginWidget"));
+        aloginWidget->resize(600, 450);
+        aloginWidget->setMinimumSize(QSize(600, 450));
+        aloginWidget->setMaximumSize(QSize(600, 450));
+        layoutWidget_2 = new QWidget(aloginWidget);
         layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(120, 370, 274, 29));
+        layoutWidget_2->setGeometry(QRect(120, 360, 274, 29));
         horizontalLayout_2 = new QHBoxLayout(layoutWidget_2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -70,31 +70,27 @@ public:
 
         horizontalLayout_2->addWidget(cancelButton);
 
-        label = new QLabel(uloginWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(70, 60, 360, 50));
-        QFont font1;
-        font1.setPointSize(14);
-        label->setFont(font1);
-        layoutWidget = new QWidget(uloginWidget);
+        layoutWidget = new QWidget(aloginWidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(70, 150, 361, 151));
+        layoutWidget->setGeometry(QRect(80, 150, 361, 151));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        usernameLabel = new QLabel(layoutWidget);
-        usernameLabel->setObjectName(QString::fromUtf8("usernameLabel"));
-        usernameLabel->setFont(font1);
+        adminnameLabel = new QLabel(layoutWidget);
+        adminnameLabel->setObjectName(QString::fromUtf8("adminnameLabel"));
+        QFont font1;
+        font1.setPointSize(14);
+        adminnameLabel->setFont(font1);
 
-        horizontalLayout->addWidget(usernameLabel);
+        horizontalLayout->addWidget(adminnameLabel);
 
-        usernameLineEdit = new QLineEdit(layoutWidget);
-        usernameLineEdit->setObjectName(QString::fromUtf8("usernameLineEdit"));
-        usernameLineEdit->setFont(font1);
+        adminnameLineEdit = new QLineEdit(layoutWidget);
+        adminnameLineEdit->setObjectName(QString::fromUtf8("adminnameLineEdit"));
+        adminnameLineEdit->setFont(font1);
 
-        horizontalLayout->addWidget(usernameLineEdit);
+        horizontalLayout->addWidget(adminnameLineEdit);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -116,28 +112,32 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_5);
 
+        label = new QLabel(aloginWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(70, 60, 360, 50));
+        label->setFont(font1);
 
-        retranslateUi(uloginWidget);
+        retranslateUi(aloginWidget);
 
-        QMetaObject::connectSlotsByName(uloginWidget);
+        QMetaObject::connectSlotsByName(aloginWidget);
     } // setupUi
 
-    void retranslateUi(QWidget *uloginWidget)
+    void retranslateUi(QWidget *aloginWidget)
     {
-        uloginWidget->setWindowTitle(QCoreApplication::translate("uloginWidget", "user login", nullptr));
-        commitButton->setText(QCoreApplication::translate("uloginWidget", "Commit", nullptr));
-        cancelButton->setText(QCoreApplication::translate("uloginWidget", "Cancel", nullptr));
-        label->setText(QCoreApplication::translate("uloginWidget", "User login:", nullptr));
-        usernameLabel->setText(QCoreApplication::translate("uloginWidget", "username:", nullptr));
-        pswdLabel->setText(QCoreApplication::translate("uloginWidget", "password:", nullptr));
+        aloginWidget->setWindowTitle(QCoreApplication::translate("aloginWidget", "administrator login", nullptr));
+        commitButton->setText(QCoreApplication::translate("aloginWidget", "Commit", nullptr));
+        cancelButton->setText(QCoreApplication::translate("aloginWidget", "Cancel", nullptr));
+        adminnameLabel->setText(QCoreApplication::translate("aloginWidget", "adminname:", nullptr));
+        pswdLabel->setText(QCoreApplication::translate("aloginWidget", "password:", nullptr));
+        label->setText(QCoreApplication::translate("aloginWidget", "Administrator login:", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class uloginWidget: public Ui_uloginWidget {};
+    class aloginWidget: public Ui_aloginWidget {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_ULOGINWIDGET_H
+#endif // UI_ALOGINWIDGET_H

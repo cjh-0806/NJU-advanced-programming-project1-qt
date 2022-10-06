@@ -174,6 +174,7 @@ public:
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         commitButton = new QPushButton(layoutWidget_2);
         commitButton->setObjectName(QString::fromUtf8("commitButton"));
+        commitButton->setFont(font1);
 
         horizontalLayout_2->addWidget(commitButton);
 
@@ -183,6 +184,7 @@ public:
 
         cancelButton = new QPushButton(layoutWidget_2);
         cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setFont(font1);
 
         horizontalLayout_2->addWidget(cancelButton);
 
@@ -195,7 +197,7 @@ public:
     void retranslateUi(QWidget *regiWidget)
     {
         regiWidget->setWindowTitle(QCoreApplication::translate("regiWidget", "user register", nullptr));
-        label->setText(QCoreApplication::translate("regiWidget", "Please input the infomation below:", nullptr));
+        label->setText(QCoreApplication::translate("regiWidget", "User register:", nullptr));
         usernameLabel->setText(QCoreApplication::translate("regiWidget", "username:", nullptr));
         pswdLabel->setText(QCoreApplication::translate("regiWidget", "password:", nullptr));
         phonenumLabel->setText(QCoreApplication::translate("regiWidget", "phonenumber:", nullptr));

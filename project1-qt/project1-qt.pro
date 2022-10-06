@@ -16,21 +16,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    acommandwidget.cpp \
+    admin.cpp \
     aloginwidget.cpp \
+    commodity.cpp \
     main.cpp \
+    order.cpp \
     regiwidget.cpp \
     uloginwidget.cpp \
     user.cpp \
     widget.cpp
 
 HEADERS += \
+    acommandwidget.h \
+    admin.h \
     aloginwidget.h \
+    commodity.h \
+    order.h \
     regiwidget.h \
     uloginwidget.h \
     user.h \
     widget.h
 
 FORMS += \
+    acommandwidget.ui \
     aloginwidget.ui \
     regiwidget.ui \
     uloginwidget.ui \

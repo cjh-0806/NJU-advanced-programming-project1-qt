@@ -36,8 +36,8 @@ void Widget::on_registerButton_clicked()
 
 void Widget::on_aloginButton_clicked()
 {
-    aloginWidget* a_w = new aloginWidget;
-    a_w->show();
+    aloginWidget* al_w = new aloginWidget;
+    al_w->show();
 }
 
 void Widget::on_exitButton_clicked()
