@@ -15,6 +15,11 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+private slots:
+    void on_registerButton_clicked();
+
+    void on_exitButton_clicked();
+
 private:
     Ui::Widget *ui;
 };
