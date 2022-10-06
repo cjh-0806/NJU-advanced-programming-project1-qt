@@ -21,7 +21,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_regiwidget
+class Ui_regiWidget
 {
 public:
     QLabel *label;
@@ -51,22 +51,22 @@ public:
     QSpacerItem *horizontalSpacer_5;
     QPushButton *cancelButton;
 
-    void setupUi(QWidget *regiwidget)
+    void setupUi(QWidget *regiWidget)
     {
-        if (regiwidget->objectName().isEmpty())
-            regiwidget->setObjectName(QString::fromUtf8("regiwidget"));
-        regiwidget->resize(600, 450);
-        regiwidget->setMinimumSize(QSize(600, 450));
-        regiwidget->setMaximumSize(QSize(600, 450));
-        label = new QLabel(regiwidget);
+        if (regiWidget->objectName().isEmpty())
+            regiWidget->setObjectName(QString::fromUtf8("regiWidget"));
+        regiWidget->resize(600, 450);
+        regiWidget->setMinimumSize(QSize(600, 450));
+        regiWidget->setMaximumSize(QSize(600, 450));
+        label = new QLabel(regiWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(20, 50, 360, 50));
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
-        layoutWidget = new QWidget(regiwidget);
+        layoutWidget = new QWidget(regiWidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 110, 558, 251));
+        layoutWidget->setGeometry(QRect(20, 120, 564, 222));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -74,6 +74,9 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         usernameLabel = new QLabel(layoutWidget);
         usernameLabel->setObjectName(QString::fromUtf8("usernameLabel"));
+        QFont font1;
+        font1.setPointSize(12);
+        usernameLabel->setFont(font1);
 
         verticalLayout->addWidget(usernameLabel);
 
@@ -83,6 +86,7 @@ public:
 
         pswdLabel = new QLabel(layoutWidget);
         pswdLabel->setObjectName(QString::fromUtf8("pswdLabel"));
+        pswdLabel->setFont(font1);
 
         verticalLayout->addWidget(pswdLabel);
 
@@ -92,6 +96,7 @@ public:
 
         phonenumLabel = new QLabel(layoutWidget);
         phonenumLabel->setObjectName(QString::fromUtf8("phonenumLabel"));
+        phonenumLabel->setFont(font1);
 
         verticalLayout->addWidget(phonenumLabel);
 
@@ -101,6 +106,7 @@ public:
 
         addrLabel = new QLabel(layoutWidget);
         addrLabel->setObjectName(QString::fromUtf8("addrLabel"));
+        addrLabel->setFont(font1);
 
         verticalLayout->addWidget(addrLabel);
 
@@ -115,6 +121,7 @@ public:
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         usernameLineEdit = new QLineEdit(layoutWidget);
         usernameLineEdit->setObjectName(QString::fromUtf8("usernameLineEdit"));
+        usernameLineEdit->setFont(font1);
 
         verticalLayout_2->addWidget(usernameLineEdit);
 
@@ -125,6 +132,7 @@ public:
 
         pswdLineEdit = new QLineEdit(layoutWidget);
         pswdLineEdit->setObjectName(QString::fromUtf8("pswdLineEdit"));
+        pswdLineEdit->setFont(font1);
 
         verticalLayout_2->addWidget(pswdLineEdit);
 
@@ -135,6 +143,7 @@ public:
 
         phonenumLineEdit = new QLineEdit(layoutWidget);
         phonenumLineEdit->setObjectName(QString::fromUtf8("phonenumLineEdit"));
+        phonenumLineEdit->setFont(font1);
 
         verticalLayout_2->addWidget(phonenumLineEdit);
 
@@ -145,6 +154,7 @@ public:
 
         addrLineEdit = new QLineEdit(layoutWidget);
         addrLineEdit->setObjectName(QString::fromUtf8("addrLineEdit"));
+        addrLineEdit->setFont(font1);
 
         verticalLayout_2->addWidget(addrLineEdit);
 
@@ -156,7 +166,7 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_2);
 
-        layoutWidget_2 = new QWidget(regiwidget);
+        layoutWidget_2 = new QWidget(regiWidget);
         layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
         layoutWidget_2->setGeometry(QRect(130, 390, 281, 41));
         horizontalLayout_2 = new QHBoxLayout(layoutWidget_2);
@@ -177,31 +187,31 @@ public:
         horizontalLayout_2->addWidget(cancelButton);
 
 
-        retranslateUi(regiwidget);
+        retranslateUi(regiWidget);
 
-        QMetaObject::connectSlotsByName(regiwidget);
+        QMetaObject::connectSlotsByName(regiWidget);
     } // setupUi
 
-    void retranslateUi(QWidget *regiwidget)
+    void retranslateUi(QWidget *regiWidget)
     {
-        regiwidget->setWindowTitle(QCoreApplication::translate("regiwidget", "Form", nullptr));
-        label->setText(QCoreApplication::translate("regiwidget", "Please input the infomation below:", nullptr));
-        usernameLabel->setText(QCoreApplication::translate("regiwidget", "Username:", nullptr));
-        pswdLabel->setText(QCoreApplication::translate("regiwidget", "password:", nullptr));
-        phonenumLabel->setText(QCoreApplication::translate("regiwidget", "phonenumber:", nullptr));
-        addrLabel->setText(QCoreApplication::translate("regiwidget", "address:", nullptr));
-        usernameTip->setText(QCoreApplication::translate("regiwidget", "(no more than 10 letters)", nullptr));
-        pswdTip->setText(QCoreApplication::translate("regiwidget", "(no more than 20 characters, only lowercase letters and numbers)", nullptr));
-        phonenumTip->setText(QCoreApplication::translate("regiwidget", "(no more than 20 numbers)", nullptr));
-        addrTip->setText(QCoreApplication::translate("regiwidget", "(no more than 40 letters)", nullptr));
-        commitButton->setText(QCoreApplication::translate("regiwidget", "Commit", nullptr));
-        cancelButton->setText(QCoreApplication::translate("regiwidget", "Cancel", nullptr));
+        regiWidget->setWindowTitle(QCoreApplication::translate("regiWidget", "user register", nullptr));
+        label->setText(QCoreApplication::translate("regiWidget", "Please input the infomation below:", nullptr));
+        usernameLabel->setText(QCoreApplication::translate("regiWidget", "username:", nullptr));
+        pswdLabel->setText(QCoreApplication::translate("regiWidget", "password:", nullptr));
+        phonenumLabel->setText(QCoreApplication::translate("regiWidget", "phonenumber:", nullptr));
+        addrLabel->setText(QCoreApplication::translate("regiWidget", "address:", nullptr));
+        usernameTip->setText(QCoreApplication::translate("regiWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 10 letters)</span></p></body></html>", nullptr));
+        pswdTip->setText(QCoreApplication::translate("regiWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 20 characters, only lowercase letters and numbers)</span></p></body></html>", nullptr));
+        phonenumTip->setText(QCoreApplication::translate("regiWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 20 numbers)</span></p></body></html>", nullptr));
+        addrTip->setText(QCoreApplication::translate("regiWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 40 letters)</span></p></body></html>", nullptr));
+        commitButton->setText(QCoreApplication::translate("regiWidget", "Commit", nullptr));
+        cancelButton->setText(QCoreApplication::translate("regiWidget", "Cancel", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class regiwidget: public Ui_regiwidget {};
+    class regiWidget: public Ui_regiWidget {};
 } // namespace Ui
 
 QT_END_NAMESPACE

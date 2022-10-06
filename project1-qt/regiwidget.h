@@ -2,21 +2,28 @@
 #define REGIWIDGET_H
 
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
-class regiwidget;
+class regiWidget;
 }
 
-class regiwidget : public QWidget
+class regiWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit regiwidget(QWidget *parent = nullptr);
-    ~regiwidget();
+    explicit regiWidget(QWidget *parent = nullptr);
+    ~regiWidget();
+
+private slots:
+    void on_commitButton_clicked();
+
+    void on_cancelButton_clicked();
+
 
 private:
-    Ui::regiwidget *ui;
+    Ui::regiWidget *ui;
 };
 
 #endif // REGIWIDGET_H

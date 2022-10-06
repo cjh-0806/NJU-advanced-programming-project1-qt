@@ -16,19 +16,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aloginwidget.cpp \
     main.cpp \
     regiwidget.cpp \
+    uloginwidget.cpp \
+    user.cpp \
     widget.cpp
 
 HEADERS += \
+    aloginwidget.h \
     regiwidget.h \
+    uloginwidget.h \
+    user.h \
     widget.h
 
 FORMS += \
+    aloginwidget.ui \
     regiwidget.ui \
+    uloginwidget.ui \
     widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

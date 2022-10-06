@@ -20,7 +20,12 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_aloginButton_clicked();
+
+    void on_uloginButton_clicked();
+
 private:
     Ui::Widget *ui;
 };
+
 #endif // WIDGET_H
