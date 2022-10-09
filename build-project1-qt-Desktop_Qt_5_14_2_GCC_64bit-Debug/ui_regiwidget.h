@@ -60,7 +60,7 @@ public:
         regiWidget->setMaximumSize(QSize(600, 450));
         label = new QLabel(regiWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(20, 50, 360, 50));
+        label->setGeometry(QRect(20, 60, 360, 21));
         QFont font;
         font.setPointSize(14);
         label->setFont(font);

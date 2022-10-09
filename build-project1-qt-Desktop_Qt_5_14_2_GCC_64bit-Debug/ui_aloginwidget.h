@@ -114,7 +114,7 @@ public:
 
         label = new QLabel(aloginWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(70, 60, 360, 50));
+        label->setGeometry(QRect(70, 60, 360, 21));
         label->setFont(font1);
 
         retranslateUi(aloginWidget);

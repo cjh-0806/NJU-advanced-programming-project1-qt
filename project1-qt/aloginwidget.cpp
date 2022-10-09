@@ -1,7 +1,7 @@
 #include "aloginwidget.h"
 #include "ui_aloginwidget.h"
 #include "admin.h"
-#include "acommandwidget.h"
+#include "adminwidget.h"
 #include <QMessageBox>
 
 aloginWidget::aloginWidget(QWidget *parent) :
@@ -24,7 +24,7 @@ void aloginWidget::on_commitButton_clicked()
     if(admin.get_name() == name.toStdString() && admin.get_pswd() == pswd.toStdString())
     {
         this->close();
-        acommandWidget* ac_w = new acommandWidget;
+        adminWidget* ac_w = new adminWidget;
         ac_w->show();
     }
     else

@@ -1,19 +1,19 @@
-#ifndef ACOMMANDWIDGET_H
-#define ACOMMANDWIDGET_H
+#ifndef ADMINWIDGET_H
+#define ADMINWIDGET_H
 
 #include <QWidget>
 
 namespace Ui {
-class acommandWidget;
+class adminWidget;
 }
 
-class acommandWidget : public QWidget
+class adminWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit acommandWidget(QWidget *parent = nullptr);
-    ~acommandWidget();
+    explicit adminWidget(QWidget *parent = nullptr);
+    ~adminWidget();
 
 private slots:
     void on_viewuserButton_clicked();
@@ -31,7 +31,7 @@ private slots:
     void on_logoutButton_clicked();
 
 private:
-    Ui::acommandWidget *ui;
+    Ui::adminWidget *ui;
 };
 
-#endif // ACOMMANDWIDGET_H
+#endif // ADMINWIDGET_H

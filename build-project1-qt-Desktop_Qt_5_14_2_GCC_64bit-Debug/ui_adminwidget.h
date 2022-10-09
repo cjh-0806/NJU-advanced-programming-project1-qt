@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'acommandwidget.ui'
+** Form generated from reading UI file 'adminwidget.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_ACOMMANDWIDGET_H
-#define UI_ACOMMANDWIDGET_H
+#ifndef UI_ADMINWIDGET_H
+#define UI_ADMINWIDGET_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -20,7 +20,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_acommandWidget
+class Ui_adminWidget
 {
 public:
     QPushButton *logoutButton;
@@ -42,26 +42,26 @@ public:
     QSpacerItem *verticalSpacer_3;
     QPushButton *rmvcommoButton;
 
-    void setupUi(QWidget *acommandWidget)
+    void setupUi(QWidget *adminWidget)
     {
-        if (acommandWidget->objectName().isEmpty())
-            acommandWidget->setObjectName(QString::fromUtf8("acommandWidget"));
-        acommandWidget->resize(600, 450);
-        acommandWidget->setMinimumSize(QSize(600, 450));
-        acommandWidget->setMaximumSize(QSize(600, 450));
-        logoutButton = new QPushButton(acommandWidget);
+        if (adminWidget->objectName().isEmpty())
+            adminWidget->setObjectName(QString::fromUtf8("adminWidget"));
+        adminWidget->resize(600, 450);
+        adminWidget->setMinimumSize(QSize(600, 450));
+        adminWidget->setMaximumSize(QSize(600, 450));
+        logoutButton = new QPushButton(adminWidget);
         logoutButton->setObjectName(QString::fromUtf8("logoutButton"));
         logoutButton->setGeometry(QRect(220, 300, 140, 27));
         QFont font;
         font.setPointSize(12);
         logoutButton->setFont(font);
-        label = new QLabel(acommandWidget);
+        label = new QLabel(adminWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(50, 80, 451, 21));
         QFont font1;
         font1.setPointSize(14);
         label->setFont(font1);
-        layoutWidget = new QWidget(acommandWidget);
+        layoutWidget = new QWidget(adminWidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(20, 160, 541, 101));
         horizontalLayout = new QHBoxLayout(layoutWidget);
@@ -139,29 +139,30 @@ public:
         horizontalLayout->addLayout(verticalLayout_3);
 
 
-        retranslateUi(acommandWidget);
+        retranslateUi(adminWidget);
 
-        QMetaObject::connectSlotsByName(acommandWidget);
+        QMetaObject::connectSlotsByName(adminWidget);
     } // setupUi
 
-    void retranslateUi(QWidget *acommandWidget)
+    void retranslateUi(QWidget *adminWidget)
     {
-        acommandWidget->setWindowTitle(QCoreApplication::translate("acommandWidget", "Administrator", nullptr));
-        logoutButton->setText(QCoreApplication::translate("acommandWidget", "Logout", nullptr));
-        label->setText(QCoreApplication::translate("acommandWidget", "Hello, administrator! Please choose your command:", nullptr));
-        viewuserButton->setText(QCoreApplication::translate("acommandWidget", "View users", nullptr));
-        viewcommoButton->setText(QCoreApplication::translate("acommandWidget", "View commodities", nullptr));
-        banuserButton->setText(QCoreApplication::translate("acommandWidget", "Ban users", nullptr));
-        srchcommoButton->setText(QCoreApplication::translate("acommandWidget", "Search commodity", nullptr));
-        vieworderButton->setText(QCoreApplication::translate("acommandWidget", "View orders", nullptr));
-        rmvcommoButton->setText(QCoreApplication::translate("acommandWidget", "Remove commodity", nullptr));
+        adminWidget->setWindowTitle(QCoreApplication::translate("adminWidget", "Administrator", nullptr));
+        logoutButton->setText(QCoreApplication::translate("adminWidget", "Logout", nullptr));
+        label->setText(QCoreApplication::translate("adminWidget", "Hello, administrator! Please choose your command:", nullptr));
+        viewuserButton->setText(QCoreApplication::translate("adminWidget", "View users", nullptr));
+        viewcommoButton->setText(QCoreApplication::translate("adminWidget", "View commodities", nullptr));
+        banuserButton->setText(QCoreApplication::translate("adminWidget", "Ban users", nullptr));
+        srchcommoButton->setText(QCoreApplication::translate("adminWidget", "Search commodity", nullptr));
+        vieworderButton->setText(QCoreApplication::translate("adminWidget", "View orders", nullptr));
+        rmvcommoButton->setText(QCoreApplication::translate("adminWidget", "Remove commodity", nullptr));
     } // retranslateUi
 
 };
 
-namespaceadminWidgets acommandWidget: public Ui_acommandWidget {};
+namespace Ui {
+    class adminWidget: public Ui_adminWidget {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_ACOMMANDWIDGET_H
+#endif // UI_ADMINWIDGET_H
