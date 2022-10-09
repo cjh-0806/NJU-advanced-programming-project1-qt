@@ -38,3 +38,8 @@ void userWidget::on_logoutButton_clicked()
 {
     this->close();
 }
+
+void userWidget::getUser(User p)
+{
+    this->p = p;
+}

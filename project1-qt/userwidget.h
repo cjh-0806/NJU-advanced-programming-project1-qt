@@ -2,6 +2,7 @@
 #define USERWIDGET_H
 
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class userWidget;
@@ -24,7 +25,11 @@ private slots:
 
     void on_logoutButton_clicked();
 
+private slots:
+    void getUser(User p);
+
 private:
+    User p;
     Ui::userWidget *ui;
 };
 

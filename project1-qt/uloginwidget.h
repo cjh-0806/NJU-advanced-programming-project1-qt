@@ -2,6 +2,7 @@
 #define ULOGINWIDGET_H
 
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class uloginWidget;
@@ -19,6 +20,9 @@ private slots:
     void on_commitButton_clicked();
 
     void on_cancelButton_clicked();
+
+signals:
+    void sendUser(User);
 
 private:
     Ui::uloginWidget *ui;

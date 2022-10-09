@@ -1,6 +1,5 @@
 #include "uloginwidget.h"
 #include "ui_uloginwidget.h"
-#include "user.h"
 #include "userwidget.h"
 
 #include <QMessageBox>
@@ -36,6 +35,8 @@ void uloginWidget::on_commitButton_clicked()
         QMessageBox::information(this, tr("INFOMATION"), tr("Login successfully!"));
         this->close();
         userWidget* ul_w = new userWidget;
+        connect(this,SIGNAL(sendUser(User)),ul_w,SLOT(getUser(User)));
+        emit sendUser(uarr[i]);
         ul_w->show();
     }
 

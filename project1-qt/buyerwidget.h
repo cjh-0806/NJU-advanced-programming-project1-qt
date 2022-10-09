@@ -2,6 +2,7 @@
 #define BUYERWIDGET_H
 
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class buyerWidget;
@@ -24,7 +25,7 @@ private slots:
 
     void on_auctionButton_clicked();
 
-    void on_vieworderButton_clicked();
+    void on_vieworderButton_clicked(User& p);
 
 private:
     Ui::buyerWidget *ui;
