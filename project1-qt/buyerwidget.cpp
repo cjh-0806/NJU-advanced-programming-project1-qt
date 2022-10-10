@@ -9,6 +9,9 @@
 #include <QMessageBox>
 #include <QPushButton>
 
+#include <sstream>
+#include <iomanip>
+
 buyerWidget::buyerWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::buyerWidget)
@@ -19,6 +22,11 @@ buyerWidget::buyerWidget(QWidget *parent) :
 buyerWidget::~buyerWidget()
 {
     delete ui;
+}
+
+void buyerWidget::getUser(User p)
+{
+    this->p = p;
 }
 
 void buyerWidget::on_returnButton_clicked()
@@ -72,36 +80,35 @@ void buyerWidget::on_srchcommoButton_clicked()
         bool ok;
         QString name = QInputDialog::getText(this,"Search commodity","Please input the commodityname you want to search:",
                                             QLineEdit::Normal,"",&ok); //输入名称
-        if(ok)
+        if(!ok)
+            return;
+        QTableWidget* tw = new QTableWidget;
+        tw->setAttribute(Qt::WA_DeleteOnClose);
+        tw->setWindowTitle("Users");
+        tw->resize(600,450);
+        tw->setColumnCount(6);
+        QStringList header;
+        header << "commodityID" << "commodityname" << "price" << "number" << "attribute" << "description";
+        tw->setHorizontalHeaderLabels(header);
+        tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        CArray carr;
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        for(int i = 0; i < carr.length(); ++i)
         {
-           QTableWidget* tw = new QTableWidget;
-           tw->setAttribute(Qt::WA_DeleteOnClose);
-           tw->setWindowTitle("Users");
-           tw->resize(600,450);
-           tw->setColumnCount(6);
-           QStringList header;
-           header << "commodityID" << "commodityname" << "price" << "number" << "attribute" << "description";
-           tw->setHorizontalHeaderLabels(header);
-           tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-           tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
-           CArray carr;
-           carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-           for(int i = 0; i < carr.length(); ++i)
+           if (carr[i].get_name().find(name.toStdString()) != -1 && carr[i].get_state() == "onAuction")
            {
-               if (carr[i].get_name().find(name.toStdString()) != -1 && carr[i].get_state() == "onAuction")
-               {
-                   int rowCount = tw->rowCount();
-                   tw->insertRow(rowCount);
-                   tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
-                   tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
-                   tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
-                   tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-                   tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-                   tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
-               }
+               int rowCount = tw->rowCount();
+               tw->insertRow(rowCount);
+               tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
+               tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
+               tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
+               tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
+               tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+               tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
            }
-           tw->show();
         }
+        tw->show();
     }
     else if(msgBox->clickedButton() == attrbutton)
     { //按属性搜索
@@ -163,10 +170,103 @@ void buyerWidget::on_srchcommoButton_clicked()
 
 void buyerWidget::on_auctionButton_clicked()
 {
-
+    bool ok;
+    QString cid = QInputDialog::getText(this,"Auction","Please input the commodityID you want to auction:",
+                                        QLineEdit::Normal,"",&ok); //输入商品ID
+    if(!ok)
+        return;
+    CArray carr;
+    carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+    int i;
+    for(i = 0; i < carr.length(); ++i)
+        if (carr[i].get_id() == cid.toStdString() && carr[i].get_state() == "onAuction")
+            break;
+    if (i == carr.length())
+    {
+        QMessageBox::warning(this, "Auction", "Find nothing!");
+        return;
+    }
+    if(carr[i].get_sid() == p.get_id())
+    {
+        QMessageBox::warning(this, "Auction", "The commodity is released by you!!!");
+        return;
+    }
+    //显示商品信息
+    QString text = "Commodity information:\nname:" + QString::fromStdString(carr[i].get_name())
+            + "\nbasePrice:" + QString::number(carr[i].get_price(),'f', 1)
+            + "\nnumber:" + QString::number(carr[i].get_num())
+            + "\nattribute:" + QString::fromStdString(carr[i].get_attr())
+            + "\ndescription:" + QString::fromStdString(carr[i].get_desc());
+    QMessageBox* msgBox = new QMessageBox;
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+    msgBox->setWindowTitle(tr("Auction"));
+    msgBox->setText(text);
+    msgBox->setStandardButtons(QMessageBox::Close);
+    QPushButton *bidbutton = (msgBox->addButton(tr("offer bid"), QMessageBox::AcceptRole));
+    QPushButton *mdfbutton = (msgBox->addButton(tr("modify bid"), QMessageBox::AcceptRole));
+    QPushButton *cancelbutton = (msgBox->addButton(tr("cancel bid"), QMessageBox::AcceptRole));
+    msgBox->exec();
+    if(msgBox->clickedButton() == bidbutton)
+    {
+        double bidPrice = QInputDialog::getDouble(this,"Auction","Please input your bidPrice:",0,
+                                                  carr[i].get_price(),p.get_balance(),1,&ok); //出价
+        /*if(bidPrice > p.get_balance())
+            cout << "Balance insufficient!" << endl;
+        else if(bidPrice < carr[i].get_price())
+            cout << "Lower than basePrice!" << endl;*/
+        OArray oarr;
+        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        stringstream ss;
+        ss << 'T' << setfill('0') << setw(3) << oarr.length() + 1;
+        string orderID = ss.str();
+        time_t tt = time(NULL);
+        struct tm* t= localtime(&tt);
+        char date[20];
+        strftime(date, sizeof(date), "%F %T", t);
+        string orderdate = date;
+        oarr.push_back(Order(orderID, carr[i].get_id(), carr[i].get_price(), bidPrice, orderdate, carr[i].get_sid(), p.get_id(), "unfinished"));
+        oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        QMessageBox::information(this, tr("INFOMATION"), tr("Offer bid successfully!"));
+    }
+    else if(msgBox->clickedButton() == mdfbutton)
+    {
+        OArray oarr;
+        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        int j;
+        for(j = 0; j < oarr.length(); ++j)
+            if(oarr[j].get_buyerid() == p.get_id() && oarr[j].get_state() == "unfinished")
+                break;
+        if(j == oarr.length())
+        {
+            QMessageBox::warning(this, "Auction", "You haven't bid for this commodity!");
+            return;
+        }
+        double bidPrice = QInputDialog::getDouble(this,"Auction","Please input your modified bidPrice:",0,
+                                                          carr[i].get_price(),p.get_balance(),1,&ok);
+        /*if(bidPrice > p.get_balance())
+            cout << "Balance insufficient!" << endl;
+        else if(bidPrice < carr[i].get_price())
+            cout << "Lower than basePrice!" << endl;*/
+        oarr[j].set_bid(bidPrice);
+        oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        QMessageBox::information(this, tr("INFOMATION"), tr("Modify bid successfully!"));
+    }
+    else if(msgBox->clickedButton() == cancelbutton)
+    {
+        int j;
+        OArray oarr;
+        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        for(j = 0; j < oarr.length(); ++j)
+            if(oarr[j].get_buyerid() == p.get_id() && oarr[j].get_state() == "unfinished")
+            {
+                oarr[j].set_state("canceled");
+                oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+                QMessageBox::information(this, tr("INFOMATION"), tr("Cancel bid successfully!"));
+            }
+    }
 }
 
-void buyerWidget::on_vieworderButton_clicked(User& p)
+void buyerWidget::on_vieworderButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);

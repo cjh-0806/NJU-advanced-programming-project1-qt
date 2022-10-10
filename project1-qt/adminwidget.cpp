@@ -6,8 +6,6 @@
 
 #include <QTableWidget>
 #include <QHeaderView>
-#include <QFile>
-#include <QTextStream>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QPushButton>
@@ -57,46 +55,45 @@ void adminWidget::on_banuserButton_clicked()
     bool ok;
     QString id = QInputDialog::getText(this,"Ban a user","Please input the userID you want to ban:",
                                            QLineEdit::Normal,"",&ok); //输入封禁用户id
-    if(ok)
+    if(!ok)
+        return;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    int i;
+    for(i = 0; i < uarr.length(); ++i)
     {
-        UArray uarr;
-        uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-        int i;
-        for(i = 0; i < uarr.length(); ++i)
-        {
-            if (uarr[i].get_id() == id.toStdString() && uarr[i].get_state() == "active")
-            { //显示封禁用户信息
-                QString text = "username:" + QString::fromStdString(uarr[i].get_name())
-                        + "\nphone number:" + QString::fromStdString(uarr[i].get_num())
-                        + "\naddress:" + QString::fromStdString(uarr[i].get_addr());
-                if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to ban this user?", text))
-                { //确认封禁用户
-                    uarr[i].set_state("inactive");
-                    CArray carr;
-                    carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-                    for(int j = 0; j < carr.length(); ++j)
-                        if(carr[j].get_sid() == id.toStdString() && carr[j].get_state() == "onAuction")
-                            carr[j].set_state("removed");
-                    OArray oarr;
-                    oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-                    for(int k = 0; k < oarr.length(); ++k)
-                    {
-                        if(oarr[k].get_sellerid() == id.toStdString() && oarr[k].get_state() == "unfinished")
-                            oarr[k].set_state("removed");
-                        if(oarr[k].get_buyerid() == id.toStdString() && oarr[k].get_state() == "unfinished")
-                            oarr[k].set_state("removed");
-                    }
-                    uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-                    carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-                    oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-                    QMessageBox::about(this, "Ban a user", "Ban successfully!");
+        if (uarr[i].get_id() == id.toStdString() && uarr[i].get_state() == "active")
+        { //显示封禁用户信息
+            QString text = "username:" + QString::fromStdString(uarr[i].get_name())
+                    + "\nphone number:" + QString::fromStdString(uarr[i].get_num())
+                    + "\naddress:" + QString::fromStdString(uarr[i].get_addr());
+            if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to ban this user?", text))
+            { //确认封禁用户
+                uarr[i].set_state("inactive");
+                CArray carr;
+                carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+                for(int j = 0; j < carr.length(); ++j)
+                    if(carr[j].get_sid() == id.toStdString() && carr[j].get_state() == "onAuction")
+                        carr[j].set_state("removed");
+                OArray oarr;
+                oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+                for(int k = 0; k < oarr.length(); ++k)
+                {
+                    if(oarr[k].get_sellerid() == id.toStdString() && oarr[k].get_state() == "unfinished")
+                        oarr[k].set_state("removed");
+                    if(oarr[k].get_buyerid() == id.toStdString() && oarr[k].get_state() == "unfinished")
+                        oarr[k].set_state("removed");
                 }
-                break;
+                uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+                carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+                oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+                QMessageBox::about(this, "Ban a user", "Ban successfully!");
             }
+            break;
         }
-        if(i == uarr.length())
-            QMessageBox::warning(this, "Ban a user", "This user doesn't exist or has already be banned!");
     }
+    if(i == uarr.length())
+        QMessageBox::warning(this, "Ban a user", "This user doesn't exist or has already be banned!");
 }
 
 void adminWidget::on_vieworderButton_clicked()
@@ -176,40 +173,39 @@ void adminWidget::on_srchcommoButton_clicked()
         bool ok;
         QString name = QInputDialog::getText(this,"Search commodity","Please input the commodityname you want to search:",
                                             QLineEdit::Normal,"",&ok); //输入名称
-        if(ok)
+        if(!ok)
+            return;
+        QTableWidget* tw = new QTableWidget;
+        tw->setAttribute(Qt::WA_DeleteOnClose);
+        tw->setWindowTitle("Users");
+        tw->resize(900,450);
+        tw->setColumnCount(9);
+        QStringList header;
+        header << "commodityID" << "commodityname" << "price" << "number" << "attribute"
+              << "description" << "sellerID" << "addedDate" << "state";
+        tw->setHorizontalHeaderLabels(header);
+        tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        CArray carr;
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        for(int i = 0; i < carr.length(); ++i)
         {
-           QTableWidget* tw = new QTableWidget;
-           tw->setAttribute(Qt::WA_DeleteOnClose);
-           tw->setWindowTitle("Users");
-           tw->resize(900,450);
-           tw->setColumnCount(9);
-           QStringList header;
-           header << "commodityID" << "commodityname" << "price" << "number" << "attribute"
-                  << "description" << "sellerID" << "addedDate" << "state";
-           tw->setHorizontalHeaderLabels(header);
-           tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-           tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
-           CArray carr;
-           carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-           for(int i = 0; i < carr.length(); ++i)
+           if (carr[i].get_name().find(name.toStdString()) != -1)
            {
-               if (carr[i].get_name().find(name.toStdString()) != -1)
-               {
-                   int rowCount = tw->rowCount();
-                   tw->insertRow(rowCount);
-                   tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
-                   tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
-                   tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
-                   tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-                   tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-                   tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
-                   tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
-                   tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(carr[i].get_date())));
-                   tw->setItem(rowCount, 8, new QTableWidgetItem(QString::fromStdString(carr[i].get_state())));
-               }
+               int rowCount = tw->rowCount();
+               tw->insertRow(rowCount);
+               tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
+               tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
+               tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
+               tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
+               tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+               tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+               tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+               tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(carr[i].get_date())));
+               tw->setItem(rowCount, 8, new QTableWidgetItem(QString::fromStdString(carr[i].get_state())));
            }
-           tw->show();
         }
+        tw->show();
     }
     else if(msgBox->clickedButton() == attrbutton)
     { //按属性搜索
@@ -278,41 +274,39 @@ void adminWidget::on_rmvcommoButton_clicked()
     bool ok;
     QString id = QInputDialog::getText(this,"Remove commodity","Please input the commodityID you want to remove:",
                                            QLineEdit::Normal,"",&ok); //输入下架商品id
-    if(ok)
+    if(!ok)
+        return;
+    CArray carr;
+    carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+    int i;
+    for(i = 0; i < carr.length(); ++i)
     {
-        CArray carr;
-        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-        int i;
-        for(i = 0; i < carr.length(); ++i)
-        {
-            if (carr[i].get_id() == id.toStdString() && carr[i].get_state() == "onAuction")
-            { //显示下架商品信息
-                QString text = "commodityname:" + QString::fromStdString(carr[i].get_name())
-                        + "\nprice:" + QString::number(carr[i].get_price(),'f', 1)
-                        + "\nattribute:" + QString::fromStdString(carr[i].get_attr())
-                        + "\nsellerID:" + QString::fromStdString(carr[i].get_sid())
-                        + "\ndescription:" + QString::fromStdString(carr[i].get_desc());
-
-                if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to remove this commodity?", text))
-                { //确认下架商品
-                    carr[i].set_state("removed");
-                    OArray oarr;
-                    oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-                    for(int j = 0; j < oarr.length(); ++j)
-                    {
-                        if(oarr[j].get_cid() == id.toStdString() && oarr[j].get_state() == "unfinished")
-                            oarr[j].set_state("removed");
-                    }
-                    carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-                    oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-                    QMessageBox::about(this, "Remove commodity", "Remove successfully!");
+        if (carr[i].get_id() == id.toStdString() && carr[i].get_state() == "onAuction")
+        { //显示下架商品信息
+            QString text = "commodityname:" + QString::fromStdString(carr[i].get_name())
+                    + "\nprice:" + QString::number(carr[i].get_price(),'f', 1)
+                    + "\nattribute:" + QString::fromStdString(carr[i].get_attr())
+                    + "\nsellerID:" + QString::fromStdString(carr[i].get_sid())
+                    + "\ndescription:" + QString::fromStdString(carr[i].get_desc());
+            if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to remove this commodity?", text))
+            { //确认下架商品
+                carr[i].set_state("removed");
+                OArray oarr;
+                oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+                for(int j = 0; j < oarr.length(); ++j)
+                {
+                    if(oarr[j].get_cid() == id.toStdString() && oarr[j].get_state() == "unfinished")
+                        oarr[j].set_state("removed");
                 }
-                break;
+                carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+                oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+                QMessageBox::about(this, "Remove commodity", "Remove successfully!");
             }
+            break;
         }
-        if(i == carr.length())
-            QMessageBox::warning(this, "Remove commodity", "This commodity doesn't exist or has already be removed!");
     }
+    if(i == carr.length())
+        QMessageBox::warning(this, "Remove commodity", "This commodity doesn't exist or has already be removed!");
 }
 
 void adminWidget::on_logoutButton_clicked()

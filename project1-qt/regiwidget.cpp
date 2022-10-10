@@ -1,5 +1,6 @@
 #include "regiwidget.h"
 #include "ui_regiwidget.h"
+
 #include <QRegExpValidator>
 #include <QMessageBox>
 

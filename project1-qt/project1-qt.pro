@@ -22,8 +22,10 @@ SOURCES += \
     buyerwidget.cpp \
     commodity.cpp \
     main.cpp \
+    mdfcommowidget.cpp \
     order.cpp \
     regiwidget.cpp \
+    rlscommowidget.cpp \
     sellerwidget.cpp \
     uloginwidget.cpp \
     user.cpp \
@@ -37,8 +39,10 @@ HEADERS += \
     aloginwidget.h \
     buyerwidget.h \
     commodity.h \
+    mdfcommowidget.h \
     order.h \
     regiwidget.h \
+    rlscommowidget.h \
     sellerwidget.h \
     uloginwidget.h \
     user.h \
@@ -50,7 +54,9 @@ FORMS += \
     adminwidget.ui \
     aloginwidget.ui \
     buyerwidget.ui \
+    mdfcommowidget.ui \
     regiwidget.ui \
+    rlscommowidget.ui \
     sellerwidget.ui \
     uloginwidget.ui \
     userinfowidget.ui \

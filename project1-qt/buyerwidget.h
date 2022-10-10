@@ -17,6 +17,8 @@ public:
     ~buyerWidget();
 
 private slots:
+    void getUser(User p);
+
     void on_returnButton_clicked();
 
     void on_viewcommoButton_clicked();
@@ -25,10 +27,11 @@ private slots:
 
     void on_auctionButton_clicked();
 
-    void on_vieworderButton_clicked(User& p);
+    void on_vieworderButton_clicked();
 
 private:
     Ui::buyerWidget *ui;
+    User p;
 };
 
 #endif // BUYERWIDGET_H

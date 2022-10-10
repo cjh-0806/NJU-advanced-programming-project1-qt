@@ -17,6 +17,8 @@ public:
     ~userWidget();
 
 private slots:
+    void getUser(User p);
+
     void on_buyerButton_clicked();
 
     void on_sellerButton_clicked();
@@ -25,8 +27,8 @@ private slots:
 
     void on_logoutButton_clicked();
 
-private slots:
-    void getUser(User p);
+signals:
+    void sendUser(User);
 
 private:
     User p;

@@ -24,14 +24,14 @@ class Ui_sellerWidget
 {
 public:
     QLabel *label;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QPushButton *returnButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *rlscommoButton;
     QSpacerItem *horizontalSpacer_2;
-    QPushButton *rmvButton;
+    QPushButton *rmvcommoButton;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *mdfinfoButton;
     QSpacerItem *horizontalSpacer_3;
@@ -50,15 +50,15 @@ public:
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
-        widget = new QWidget(sellerWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 170, 571, 141));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(sellerWidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 170, 571, 141));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        returnButton = new QPushButton(widget);
+        returnButton = new QPushButton(layoutWidget);
         returnButton->setObjectName(QString::fromUtf8("returnButton"));
         QFont font1;
         font1.setPointSize(12);
@@ -70,7 +70,7 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        rlscommoButton = new QPushButton(widget);
+        rlscommoButton = new QPushButton(layoutWidget);
         rlscommoButton->setObjectName(QString::fromUtf8("rlscommoButton"));
         rlscommoButton->setFont(font1);
 
@@ -80,18 +80,18 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        rmvButton = new QPushButton(widget);
-        rmvButton->setObjectName(QString::fromUtf8("rmvButton"));
-        rmvButton->setFont(font1);
+        rmvcommoButton = new QPushButton(layoutWidget);
+        rmvcommoButton->setObjectName(QString::fromUtf8("rmvcommoButton"));
+        rmvcommoButton->setFont(font1);
 
-        horizontalLayout->addWidget(rmvButton);
+        horizontalLayout->addWidget(rmvcommoButton);
 
 
         verticalLayout->addLayout(horizontalLayout);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        mdfinfoButton = new QPushButton(widget);
+        mdfinfoButton = new QPushButton(layoutWidget);
         mdfinfoButton->setObjectName(QString::fromUtf8("mdfinfoButton"));
         mdfinfoButton->setFont(font1);
 
@@ -101,7 +101,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_3);
 
-        viewcommoButton = new QPushButton(widget);
+        viewcommoButton = new QPushButton(layoutWidget);
         viewcommoButton->setObjectName(QString::fromUtf8("viewcommoButton"));
         viewcommoButton->setFont(font1);
 
@@ -111,7 +111,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_4);
 
-        vieworderButton = new QPushButton(widget);
+        vieworderButton = new QPushButton(layoutWidget);
         vieworderButton->setObjectName(QString::fromUtf8("vieworderButton"));
         vieworderButton->setFont(font1);
 
@@ -132,7 +132,7 @@ public:
         label->setText(QCoreApplication::translate("sellerWidget", "Hello, seller! Please choose your command:", nullptr));
         returnButton->setText(QCoreApplication::translate("sellerWidget", "Return", nullptr));
         rlscommoButton->setText(QCoreApplication::translate("sellerWidget", "Release commodity", nullptr));
-        rmvButton->setText(QCoreApplication::translate("sellerWidget", "Remove commodity", nullptr));
+        rmvcommoButton->setText(QCoreApplication::translate("sellerWidget", "Remove commodity", nullptr));
         mdfinfoButton->setText(QCoreApplication::translate("sellerWidget", "Modify information", nullptr));
         viewcommoButton->setText(QCoreApplication::translate("sellerWidget", "View released commodities", nullptr));
         vieworderButton->setText(QCoreApplication::translate("sellerWidget", "View order history", nullptr));
