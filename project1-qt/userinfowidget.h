@@ -1,5 +1,6 @@
 #ifndef USERINFOWIDGET_H
 #define USERINFOWIDGET_H
+#include "user.h"
 
 #include <QWidget>
 
@@ -15,8 +16,23 @@ public:
     explicit userinfoWidget(QWidget *parent = nullptr);
     ~userinfoWidget();
 
+private slots:
+    void getUserIndex(int);
+
+    void on_returnButton_clicked();
+
+    void on_viewinfoButton_clicked();
+
+    void on_rechargeButton_clicked();
+
+    void on_mdfinfoButton_clicked();
+
+signals:
+    void sendUserIndex(int);
+
 private:
     Ui::userinfoWidget *ui;
+    int i;
 };
 
 #endif // USERINFOWIDGET_H

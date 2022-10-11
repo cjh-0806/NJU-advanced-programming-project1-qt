@@ -34,7 +34,7 @@ private slots:
 
 signals:
     void sendUser(User);
-    void sendCommodity(Commodity);
+    void sendCommodityIndex(int);
 
 private:
     Ui::sellerWidget *ui;

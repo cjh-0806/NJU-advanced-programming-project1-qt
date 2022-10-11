@@ -40,7 +40,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Hello, user! Please choose your command:</string>
+    <string/>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">

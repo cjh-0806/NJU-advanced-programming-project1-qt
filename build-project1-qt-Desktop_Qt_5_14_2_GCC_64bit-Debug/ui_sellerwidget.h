@@ -129,7 +129,7 @@ public:
     void retranslateUi(QWidget *sellerWidget)
     {
         sellerWidget->setWindowTitle(QCoreApplication::translate("sellerWidget", "Seller", nullptr));
-        label->setText(QCoreApplication::translate("sellerWidget", "Hello, seller! Please choose your command:", nullptr));
+        label->setText(QString());
         returnButton->setText(QCoreApplication::translate("sellerWidget", "Return", nullptr));
         rlscommoButton->setText(QCoreApplication::translate("sellerWidget", "Release commodity", nullptr));
         rmvcommoButton->setText(QCoreApplication::translate("sellerWidget", "Remove commodity", nullptr));

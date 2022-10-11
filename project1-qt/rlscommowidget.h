@@ -3,7 +3,6 @@
 
 #include "user.h"
 #include <QWidget>
-#include <QButtonGroup>
 
 namespace Ui {
 class rlscommoWidget;

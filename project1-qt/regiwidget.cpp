@@ -45,15 +45,15 @@ void regiWidget::on_commitButton_clicked()
     for(i = 0; i < uarr.length(); ++i)
         if(uarr[i].get_name() == username.toStdString() && uarr[i].get_state() == "active")
         {
-            QMessageBox::warning(this, tr("WARNING"),
-                                 tr("This username already exists! Please reset your username!"));
+            QMessageBox::warning(this, "WARNING",
+                                 "This username already exists!");
             break;
         }
     if(i == uarr.length())
     {
         uarr.push_back(User(userID, username.toStdString(), pswd.toStdString(), phonenum.toStdString(), addr.toStdString(), balance, state));
         uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-        QMessageBox::information(this, tr("INFOMATION"), tr("Register successfully!"));
+        QMessageBox::information(this, "INFOMATION", "Register successfully!");
     }
     this->close();
 }

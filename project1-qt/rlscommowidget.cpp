@@ -4,6 +4,7 @@
 
 #include <QRegExpValidator>
 #include <QMessageBox>
+#include <QButtonGroup>
 
 #include <sstream>
 #include <iomanip>
@@ -71,14 +72,14 @@ void rlscommoWidget::on_commitButton_2_clicked()
     QString text = "commodityname:" + cname
             + "\nprice:" + price
             + "\nnumber:" + num
-            + "\nattribute:" + price
+            + "\nattribute:" + QString::fromStdString(category[attr])
             + "\ndescription:" + desc;
     if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to release this commodity?", text))
     {
         carr.push_back(Commodity(commodityID, cname.toStdString(), price.toFloat(), num.toInt(),
                                  category[attr], desc.toStdString(), p.get_id(), addedDate, state));
         carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
-        QMessageBox::information(this, tr("INFOMATION"), tr("Release successfully!"));
+        QMessageBox::information(this, "INFOMATION", "Release successfully!");
     }
     this->close();
 }

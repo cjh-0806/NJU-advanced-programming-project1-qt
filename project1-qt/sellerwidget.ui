@@ -28,7 +28,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Hello, seller! Please choose your command:</string>
+    <string/>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">

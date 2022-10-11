@@ -26,8 +26,8 @@ void adminWidget::on_viewuserButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("Users");
-    tw->resize(600,450);
+    tw->setWindowTitle("View users");
+    tw->resize(900,450);
     tw->setColumnCount(6);
     QStringList header;
     header << "userID" << "username" << "phoneNumber" << "address" << "balance" << "userstate";
@@ -53,7 +53,7 @@ void adminWidget::on_viewuserButton_clicked()
 void adminWidget::on_banuserButton_clicked()
 {
     bool ok;
-    QString id = QInputDialog::getText(this,"Ban a user","Please input the userID you want to ban:",
+    QString id = QInputDialog::getText(this,"Ban user","Please input the userID you want to ban:",
                                            QLineEdit::Normal,"",&ok); //输入封禁用户id
     if(!ok)
         return;
@@ -87,21 +87,21 @@ void adminWidget::on_banuserButton_clicked()
                 uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
                 carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
                 oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-                QMessageBox::about(this, "Ban a user", "Ban successfully!");
+                QMessageBox::about(this, "Ban user", "Ban successfully!");
             }
             break;
         }
     }
     if(i == uarr.length())
-        QMessageBox::warning(this, "Ban a user", "This user doesn't exist or has already be banned!");
+        QMessageBox::warning(this, "Ban user", "This user doesn't exist or has already be banned!");
 }
 
 void adminWidget::on_vieworderButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("Users");
-    tw->resize(800,450);
+    tw->setWindowTitle("View orders");
+    tw->resize(1200,450);
     tw->setColumnCount(8);
     QStringList header;
     header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "sellerID" << "buyerID" << "state";
@@ -130,8 +130,8 @@ void adminWidget::on_viewcommoButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("Users");
-    tw->resize(900,450);
+    tw->setWindowTitle("View commodities");
+    tw->resize(1350,450);
     tw->setColumnCount(9);
     QStringList header;
     header << "commodityID" << "commodityname" << "price" << "number" << "attribute"
@@ -162,11 +162,11 @@ void adminWidget::on_srchcommoButton_clicked()
 {
     QMessageBox* msgBox = new QMessageBox;
     msgBox->setAttribute(Qt::WA_DeleteOnClose);
-    msgBox->setWindowTitle(tr("Search commodity"));
-    msgBox->setText(tr("Please chooose how to search:"));
+    msgBox->setWindowTitle("Search commodity");
+    msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
-    QPushButton *attrbutton = (msgBox->addButton(tr("attribute"), QMessageBox::AcceptRole));
-    QPushButton *namebutton = (msgBox->addButton(tr("name"), QMessageBox::AcceptRole));
+    QPushButton *attrbutton = (msgBox->addButton("attribute", QMessageBox::AcceptRole));
+    QPushButton *namebutton = (msgBox->addButton("name", QMessageBox::AcceptRole));
     msgBox->exec();
     if(msgBox->clickedButton() == namebutton)
     { //按名称搜索
@@ -177,8 +177,8 @@ void adminWidget::on_srchcommoButton_clicked()
             return;
         QTableWidget* tw = new QTableWidget;
         tw->setAttribute(Qt::WA_DeleteOnClose);
-        tw->setWindowTitle("Users");
-        tw->resize(900,450);
+        tw->setWindowTitle("Search commodity");
+        tw->resize(1350,450);
         tw->setColumnCount(9);
         QStringList header;
         header << "commodityID" << "commodityname" << "price" << "number" << "attribute"
@@ -211,17 +211,17 @@ void adminWidget::on_srchcommoButton_clicked()
     { //按属性搜索
         QMessageBox* box2 = new QMessageBox;
         box2->setAttribute(Qt::WA_DeleteOnClose);
-        box2->setWindowTitle(tr("Search commodity"));
-        box2->setText(tr("Please choose the attribute you want to search:"));
+        box2->setWindowTitle("Search commodity");
+        box2->setText("Please choose the attribute you want to search:");
         box2->setStandardButtons(QMessageBox::Cancel);
-        QPushButton *button8 = (box2->addButton(tr("other"), QMessageBox::AcceptRole));
-        QPushButton *button7 = (box2->addButton(tr("digital"), QMessageBox::AcceptRole));
-        QPushButton *button6 = (box2->addButton(tr("ornament"), QMessageBox::AcceptRole));
-        QPushButton *button5 = (box2->addButton(tr("makeup"), QMessageBox::AcceptRole));
-        QPushButton *button4 = (box2->addButton(tr("clothes"), QMessageBox::AcceptRole));
-        QPushButton *button3 = (box2->addButton(tr("food"), QMessageBox::AcceptRole));
-        QPushButton *button2 = (box2->addButton(tr("study"), QMessageBox::AcceptRole));
-        QPushButton *button1 = (box2->addButton(tr("life"), QMessageBox::AcceptRole));
+        QPushButton *button8 = (box2->addButton("other", QMessageBox::AcceptRole));
+        QPushButton *button7 = (box2->addButton("digital", QMessageBox::AcceptRole));
+        QPushButton *button6 = (box2->addButton("ornament", QMessageBox::AcceptRole));
+        QPushButton *button5 = (box2->addButton("makeup", QMessageBox::AcceptRole));
+        QPushButton *button4 = (box2->addButton("clothes", QMessageBox::AcceptRole));
+        QPushButton *button3 = (box2->addButton("food", QMessageBox::AcceptRole));
+        QPushButton *button2 = (box2->addButton("study", QMessageBox::AcceptRole));
+        QPushButton *button1 = (box2->addButton("life", QMessageBox::AcceptRole));
         box2->exec();
         int attr;
         if(box2->clickedButton() == button1) attr = 1;
@@ -236,7 +236,7 @@ void adminWidget::on_srchcommoButton_clicked()
         QTableWidget* tw = new QTableWidget;
         tw->setAttribute(Qt::WA_DeleteOnClose);
         tw->setWindowTitle("Users");
-        tw->resize(900,450);
+        tw->resize(1350,450);
         tw->setColumnCount(9);
         QStringList header;
         header << "commodityID" << "commodityname" << "price" << "number" << "attribute"

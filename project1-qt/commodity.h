@@ -32,6 +32,7 @@ public:
     string get_date() const;
     string get_state() const;
 
+    void set_name(string name);
     void set_price(float price);
     void set_num(int num);
     void set_attr(string attr);

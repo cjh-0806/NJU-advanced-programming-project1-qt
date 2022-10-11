@@ -19,6 +19,7 @@ userWidget::~userWidget()
 void userWidget::getUser(User p)
 {
     this->p = p;
+    ui->label->setText("Hello, " + QString::fromStdString(p.get_name()) + "! Please choose your command:");
 }
 
 void userWidget::on_buyerButton_clicked()
@@ -39,9 +40,15 @@ void userWidget::on_sellerButton_clicked()
 
 void userWidget::on_infoButton_clicked()
 {
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    int i;
+    for(i = 0; i < uarr.length(); ++i)
+        if(p.get_id() == uarr[i].get_id())
+            break;
     userinfoWidget* ui_w = new userinfoWidget;
-    connect(this,SIGNAL(sendUser(User)),ui_w,SLOT(getUser(User)));
-    emit sendUser(p);
+    connect(this,SIGNAL(sendUserIndex(int)),ui_w,SLOT(getUserIndex(int)));
+    emit sendUserIndex(i);
     ui_w->show();
 }
 

@@ -9,6 +9,7 @@ uloginWidget::uloginWidget(QWidget *parent) :
     ui(new Ui::uloginWidget)
 {
     ui->setupUi(this);
+    ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
 }
 
 uloginWidget::~uloginWidget()

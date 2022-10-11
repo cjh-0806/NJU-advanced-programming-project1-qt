@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Release commodity</string>
   </property>
   <widget class="QWidget" name="layoutWidget_2">
    <property name="geometry">
@@ -92,7 +92,7 @@
     <string>Release commodity:</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>

@@ -26,6 +26,7 @@ sellerWidget::~sellerWidget()
 void sellerWidget::getUser(User p)
 {
     this->p = p;
+    ui->label->setText("Hello, seller " + QString::fromStdString(p.get_name()) + "! Please choose your command:");
 }
 
 void sellerWidget::on_returnButton_clicked()
@@ -95,12 +96,12 @@ void sellerWidget::on_mdfinfoButton_clicked()
             break;
     if (i == carr.length())
     {
-        QMessageBox::warning(this, "Modify commodity information", "This commodity doesn't exist!");\
+        QMessageBox::warning(this, "Modify commodity information", "This commodity doesn't exist!");
         return;
     }
     mdfcommoWidget* mc_w = new mdfcommoWidget;
-    connect(this, SIGNAL(sendCommodity(Commodity)),mc_w,SLOT(getCommodity(Commodity)));
-    emit sendCommodity(carr[i]);
+    connect(this, SIGNAL(sendCommodityIndex(int)),mc_w,SLOT(getCommodityIndex(int)));
+    emit sendCommodityIndex(i);
     mc_w->show();
 }
 
@@ -108,8 +109,8 @@ void sellerWidget::on_viewcommoButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("Users");
-    tw->resize(800,450);
+    tw->setWindowTitle("View released commodity");
+    tw->resize(1200,450);
     tw->setColumnCount(8);
     QStringList header;
     header << "commodityID" << "commodityname" << "price" << "number"
@@ -142,8 +143,9 @@ void sellerWidget::on_vieworderButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("Users");
-    tw->resize(500,450);
+    QString title = QString::fromStdString(p.get_name()) + "'s history orders(finished)";
+    tw->setWindowTitle(title);
+    tw->resize(750,450);
     tw->setColumnCount(5);
     QStringList header;
     header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date";

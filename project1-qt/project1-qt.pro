@@ -23,6 +23,7 @@ SOURCES += \
     commodity.cpp \
     main.cpp \
     mdfcommowidget.cpp \
+    mdfuserwidget.cpp \
     order.cpp \
     regiwidget.cpp \
     rlscommowidget.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     buyerwidget.h \
     commodity.h \
     mdfcommowidget.h \
+    mdfuserwidget.h \
     order.h \
     regiwidget.h \
     rlscommowidget.h \
@@ -55,6 +57,7 @@ FORMS += \
     aloginwidget.ui \
     buyerwidget.ui \
     mdfcommowidget.ui \
+    mdfuserwidget.ui \
     regiwidget.ui \
     rlscommowidget.ui \
     sellerwidget.ui \

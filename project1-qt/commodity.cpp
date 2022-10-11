@@ -31,6 +31,7 @@ string Commodity::get_sid() const { return sellerID; }
 string Commodity::get_date() const { return addedDate; }
 string Commodity::get_state() const { return state; }
 
+void Commodity::set_name(string name) { commodityname = name; }
 void Commodity::set_price(float price) { basePrice = price; }
 void Commodity::set_num(int num) { number = num; }
 void Commodity::set_attr(string attr) { attribute = attr; }

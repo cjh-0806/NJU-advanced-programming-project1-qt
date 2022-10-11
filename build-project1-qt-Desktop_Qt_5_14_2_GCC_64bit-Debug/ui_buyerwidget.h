@@ -24,7 +24,7 @@ class Ui_buyerWidget
 {
 public:
     QLabel *label;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QPushButton *returnButton;
@@ -52,15 +52,15 @@ public:
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
-        widget = new QWidget(buyerWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(40, 150, 491, 191));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(buyerWidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(40, 150, 491, 191));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        returnButton = new QPushButton(widget);
+        returnButton = new QPushButton(layoutWidget);
         returnButton->setObjectName(QString::fromUtf8("returnButton"));
         QFont font1;
         font1.setPointSize(12);
@@ -72,7 +72,7 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        viewcommoButton = new QPushButton(widget);
+        viewcommoButton = new QPushButton(layoutWidget);
         viewcommoButton->setObjectName(QString::fromUtf8("viewcommoButton"));
         viewcommoButton->setFont(font1);
 
@@ -82,7 +82,7 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        srchcommoButton = new QPushButton(widget);
+        srchcommoButton = new QPushButton(layoutWidget);
         srchcommoButton->setObjectName(QString::fromUtf8("srchcommoButton"));
         srchcommoButton->setFont(font1);
 
@@ -97,7 +97,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_3);
 
-        auctionButton = new QPushButton(widget);
+        auctionButton = new QPushButton(layoutWidget);
         auctionButton->setObjectName(QString::fromUtf8("auctionButton"));
         auctionButton->setFont(font1);
 
@@ -107,7 +107,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_4);
 
-        vieworderButton = new QPushButton(widget);
+        vieworderButton = new QPushButton(layoutWidget);
         vieworderButton->setObjectName(QString::fromUtf8("vieworderButton"));
         vieworderButton->setFont(font1);
 
@@ -129,7 +129,7 @@ public:
     void retranslateUi(QWidget *buyerWidget)
     {
         buyerWidget->setWindowTitle(QCoreApplication::translate("buyerWidget", "Buyer", nullptr));
-        label->setText(QCoreApplication::translate("buyerWidget", "Hello, buyer! Please choose your command:", nullptr));
+        label->setText(QString());
         returnButton->setText(QCoreApplication::translate("buyerWidget", "Return", nullptr));
         viewcommoButton->setText(QCoreApplication::translate("buyerWidget", "View commodity", nullptr));
         srchcommoButton->setText(QCoreApplication::translate("buyerWidget", "Search commodity", nullptr));

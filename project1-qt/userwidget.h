@@ -29,6 +29,7 @@ private slots:
 
 signals:
     void sendUser(User);
+    void sendUserIndex(int);
 
 private:
     User p;

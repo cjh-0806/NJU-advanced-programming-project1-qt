@@ -92,7 +92,7 @@ public:
     void retranslateUi(QWidget *userWidget)
     {
         userWidget->setWindowTitle(QCoreApplication::translate("userWidget", "User", nullptr));
-        label->setText(QCoreApplication::translate("userWidget", "Hello, user! Please choose your command:", nullptr));
+        label->setText(QString());
         buyerButton->setText(QCoreApplication::translate("userWidget", "Buyer", nullptr));
         sellerButton->setText(QCoreApplication::translate("userWidget", "Seller", nullptr));
         infoButton->setText(QCoreApplication::translate("userWidget", "Information", nullptr));

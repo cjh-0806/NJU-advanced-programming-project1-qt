@@ -9,6 +9,8 @@ aloginWidget::aloginWidget(QWidget *parent) :
     ui(new Ui::aloginWidget)
 {
     ui->setupUi(this);
+
+    ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
 }
 
 aloginWidget::~aloginWidget()
@@ -28,7 +30,7 @@ void aloginWidget::on_commitButton_clicked()
         ac_w->show();
     }
     else
-        QMessageBox::warning(this, tr("WARNING"), tr("Administrator name or password is wrong!"), QMessageBox::Close);
+        QMessageBox::warning(this, "WARNING", "Administrator name or password is wrong!", QMessageBox::Close);
 }
 
 void aloginWidget::on_cancelButton_clicked()

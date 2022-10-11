@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'rlscommowidget.ui'
+** Form generated from reading UI file 'mdfcommowidget.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_RLSCOMMOWIDGET_H
-#define UI_RLSCOMMOWIDGET_H
+#ifndef UI_MDFCOMMOWIDGET_H
+#define UI_MDFCOMMOWIDGET_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -22,7 +22,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_rlscommoWidget
+class Ui_mdfcommoWidget
 {
 public:
     QWidget *layoutWidget_2;
@@ -62,14 +62,14 @@ public:
     QLineEdit *descLineEdit;
     QLabel *addrTip_2;
 
-    void setupUi(QWidget *rlscommoWidget)
+    void setupUi(QWidget *mdfcommoWidget)
     {
-        if (rlscommoWidget->objectName().isEmpty())
-            rlscommoWidget->setObjectName(QString::fromUtf8("rlscommoWidget"));
-        rlscommoWidget->resize(800, 450);
-        rlscommoWidget->setMinimumSize(QSize(800, 450));
-        rlscommoWidget->setMaximumSize(QSize(800, 450));
-        layoutWidget_2 = new QWidget(rlscommoWidget);
+        if (mdfcommoWidget->objectName().isEmpty())
+            mdfcommoWidget->setObjectName(QString::fromUtf8("mdfcommoWidget"));
+        mdfcommoWidget->resize(800, 450);
+        mdfcommoWidget->setMinimumSize(QSize(800, 450));
+        mdfcommoWidget->setMaximumSize(QSize(800, 450));
+        layoutWidget_2 = new QWidget(mdfcommoWidget);
         layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
         layoutWidget_2->setGeometry(QRect(240, 400, 281, 41));
         horizontalLayout_4 = new QHBoxLayout(layoutWidget_2);
@@ -93,13 +93,13 @@ public:
 
         horizontalLayout_4->addWidget(cancelButton_2);
 
-        label = new QLabel(rlscommoWidget);
+        label = new QLabel(mdfcommoWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(20, 40, 360, 21));
         QFont font1;
         font1.setPointSize(14);
         label->setFont(font1);
-        layoutWidget = new QWidget(rlscommoWidget);
+        layoutWidget = new QWidget(mdfcommoWidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(20, 70, 758, 321));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget);
@@ -259,42 +259,42 @@ public:
         horizontalLayout_5->addLayout(verticalLayout_4);
 
 
-        retranslateUi(rlscommoWidget);
+        retranslateUi(mdfcommoWidget);
 
-        QMetaObject::connectSlotsByName(rlscommoWidget);
+        QMetaObject::connectSlotsByName(mdfcommoWidget);
     } // setupUi
 
-    void retranslateUi(QWidget *rlscommoWidget)
+    void retranslateUi(QWidget *mdfcommoWidget)
     {
-        rlscommoWidget->setWindowTitle(QCoreApplication::translate("rlscommoWidget", "Release commodity", nullptr));
-        commitButton_2->setText(QCoreApplication::translate("rlscommoWidget", "Commit", nullptr));
-        cancelButton_2->setText(QCoreApplication::translate("rlscommoWidget", "Cancel", nullptr));
-        label->setText(QCoreApplication::translate("rlscommoWidget", "Release commodity:", nullptr));
-        usernameLabel_2->setText(QCoreApplication::translate("rlscommoWidget", "commodity name:", nullptr));
-        pswdLabel_2->setText(QCoreApplication::translate("rlscommoWidget", "price:", nullptr));
-        phonenumLabel_2->setText(QCoreApplication::translate("rlscommoWidget", "number:", nullptr));
-        addrLabel_2->setText(QCoreApplication::translate("rlscommoWidget", "attribute:", nullptr));
-        label_2->setText(QCoreApplication::translate("rlscommoWidget", "description:", nullptr));
-        usernameTip_2->setText(QCoreApplication::translate("rlscommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 20 letters)</span></p></body></html>", nullptr));
-        pswdTip_2->setText(QCoreApplication::translate("rlscommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(base price for this commodity, no more than 1 decimal)</span></p></body></html>", nullptr));
-        phonenumTip_2->setText(QCoreApplication::translate("rlscommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(the quantity of commodity)</span></p></body></html>", nullptr));
-        lifeButton->setText(QCoreApplication::translate("rlscommoWidget", "life", nullptr));
-        studyButton->setText(QCoreApplication::translate("rlscommoWidget", "study", nullptr));
-        foodButton->setText(QCoreApplication::translate("rlscommoWidget", "food", nullptr));
-        clothesButton->setText(QCoreApplication::translate("rlscommoWidget", "clothes", nullptr));
-        makeupButton->setText(QCoreApplication::translate("rlscommoWidget", "makeup", nullptr));
-        ornaButton->setText(QCoreApplication::translate("rlscommoWidget", "ornament", nullptr));
-        digiButton->setText(QCoreApplication::translate("rlscommoWidget", "digital", nullptr));
-        otherButton->setText(QCoreApplication::translate("rlscommoWidget", "other", nullptr));
-        addrTip_2->setText(QCoreApplication::translate("rlscommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 200 letters)</span></p></body></html>", nullptr));
+        mdfcommoWidget->setWindowTitle(QCoreApplication::translate("mdfcommoWidget", "Form", nullptr));
+        commitButton_2->setText(QCoreApplication::translate("mdfcommoWidget", "Commit", nullptr));
+        cancelButton_2->setText(QCoreApplication::translate("mdfcommoWidget", "Cancel", nullptr));
+        label->setText(QCoreApplication::translate("mdfcommoWidget", "Modify commodity information:", nullptr));
+        usernameLabel_2->setText(QCoreApplication::translate("mdfcommoWidget", "commodity name:", nullptr));
+        pswdLabel_2->setText(QCoreApplication::translate("mdfcommoWidget", "price:", nullptr));
+        phonenumLabel_2->setText(QCoreApplication::translate("mdfcommoWidget", "number:", nullptr));
+        addrLabel_2->setText(QCoreApplication::translate("mdfcommoWidget", "attribute:", nullptr));
+        label_2->setText(QCoreApplication::translate("mdfcommoWidget", "description:", nullptr));
+        usernameTip_2->setText(QCoreApplication::translate("mdfcommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 20 letters)</span></p></body></html>", nullptr));
+        pswdTip_2->setText(QCoreApplication::translate("mdfcommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(base price for this commodity, no more than 1 decimal)</span></p></body></html>", nullptr));
+        phonenumTip_2->setText(QCoreApplication::translate("mdfcommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(the quantity of commodity)</span></p></body></html>", nullptr));
+        lifeButton->setText(QCoreApplication::translate("mdfcommoWidget", "life", nullptr));
+        studyButton->setText(QCoreApplication::translate("mdfcommoWidget", "study", nullptr));
+        foodButton->setText(QCoreApplication::translate("mdfcommoWidget", "food", nullptr));
+        clothesButton->setText(QCoreApplication::translate("mdfcommoWidget", "clothes", nullptr));
+        makeupButton->setText(QCoreApplication::translate("mdfcommoWidget", "makeup", nullptr));
+        ornaButton->setText(QCoreApplication::translate("mdfcommoWidget", "ornament", nullptr));
+        digiButton->setText(QCoreApplication::translate("mdfcommoWidget", "digital", nullptr));
+        otherButton->setText(QCoreApplication::translate("mdfcommoWidget", "other", nullptr));
+        addrTip_2->setText(QCoreApplication::translate("mdfcommoWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 200 letters)</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class rlscommoWidget: public Ui_rlscommoWidget {};
+    class mdfcommoWidget: public Ui_mdfcommoWidget {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_RLSCOMMOWIDGET_H
+#endif // UI_MDFCOMMOWIDGET_H

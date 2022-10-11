@@ -12,9 +12,6 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     QPixmap pix("/home/cjh/Pictures/auction.jpg");
     ui->picLabel->setPixmap(pix);
-
-    //connect(ui->registerButton, &QPushButton::clicked, this, &Widget::on_registerButton_clicked);
-    //connect(ui->exitButton, &QPushButton::clicked, this, &Widget::on_exitButton_clicked);
 }
 
 Widget::~Widget()

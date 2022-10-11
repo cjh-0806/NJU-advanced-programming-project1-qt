@@ -1,6 +1,5 @@
 #ifndef MDFCOMMOWIDGET_H
 #define MDFCOMMOWIDGET_H
-#include "commodity.h"
 
 #include <QWidget>
 
@@ -17,7 +16,7 @@ public:
     ~mdfcommoWidget();
 
 private slots:
-    void getCommodity(Commodity q);
+    void getCommodityIndex(int i);
 
     void on_commitButton_2_clicked();
 
@@ -25,6 +24,7 @@ private slots:
 
 private:
     Ui::mdfcommoWidget *ui;
+    int i;
 };
 
 #endif // MDFCOMMOWIDGET_H
