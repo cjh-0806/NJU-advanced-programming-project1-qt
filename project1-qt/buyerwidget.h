@@ -17,7 +17,7 @@ public:
     ~buyerWidget();
 
 private slots:
-    void getUser(User p);
+    void getUserIndex(int i);
 
     void on_returnButton_clicked();
 
@@ -31,7 +31,7 @@ private slots:
 
 private:
     Ui::buyerWidget *ui;
-    User p;
+    int index;
 };
 
 #endif // BUYERWIDGET_H

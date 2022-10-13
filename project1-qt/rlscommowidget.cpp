@@ -17,7 +17,7 @@ rlscommoWidget::rlscommoWidget(QWidget *parent) :
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
     ui->priceLineEdit->setValidator(new QDoubleValidator(0, 100000, 1));
-    ui->numLineEdit->setValidator(new QIntValidator);
+    ui->numLineEdit->setValidator(new QIntValidator(0, 100000));
     ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,200}")));
 }
 
@@ -26,9 +26,9 @@ rlscommoWidget::~rlscommoWidget()
     delete ui;
 }
 
-void rlscommoWidget::getUser(User p)
+void rlscommoWidget::getUserIndex(int i)
 {
-    this->p = p;
+    this->index = i;
 }
 
 void rlscommoWidget::on_commitButton_2_clicked()
@@ -76,8 +76,10 @@ void rlscommoWidget::on_commitButton_2_clicked()
             + "\ndescription:" + desc;
     if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to release this commodity?", text))
     {
+        UArray uarr;
+        uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
         carr.push_back(Commodity(commodityID, cname.toStdString(), price.toFloat(), num.toInt(),
-                                 category[attr], desc.toStdString(), p.get_id(), addedDate, state));
+                                 category[attr], desc.toStdString(), uarr[index].get_id(), addedDate, state));
         carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
         QMessageBox::information(this, "INFOMATION", "Release successfully!");
     }

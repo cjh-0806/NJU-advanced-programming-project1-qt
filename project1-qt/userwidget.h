@@ -17,7 +17,7 @@ public:
     ~userWidget();
 
 private slots:
-    void getUser(User p);
+    void getUserIndex(int i);
 
     void on_buyerButton_clicked();
 
@@ -28,12 +28,11 @@ private slots:
     void on_logoutButton_clicked();
 
 signals:
-    void sendUser(User);
     void sendUserIndex(int);
 
 private:
-    User p;
     Ui::userWidget *ui;
+    int index;
 };
 
 #endif // USERWIDGET_H

@@ -25,10 +25,12 @@ buyerWidget::~buyerWidget()
     delete ui;
 }
 
-void buyerWidget::getUser(User p)
+void buyerWidget::getUserIndex(int i)
 {
-    this->p = p;
-    ui->label->setText("Hello, buyer " + QString::fromStdString(p.get_name()) + "! Please choose your command:");
+    this->index = i;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    ui->label->setText("Hello, buyer " + QString::fromStdString(uarr[index].get_name()) + "! Please choose your command:");
 }
 
 void buyerWidget::on_returnButton_clicked()
@@ -188,7 +190,9 @@ void buyerWidget::on_auctionButton_clicked()
         QMessageBox::warning(this, "Auction", "Find nothing!");
         return;
     }
-    if(carr[i].get_sid() == p.get_id())
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    if(carr[i].get_sid() == uarr[index].get_id())
     {
         QMessageBox::warning(this, "Auction", "The commodity is released by you!!!");
         return;
@@ -208,10 +212,24 @@ void buyerWidget::on_auctionButton_clicked()
     QPushButton *mdfbutton = (msgBox->addButton("modify bid", QMessageBox::AcceptRole));
     QPushButton *cancelbutton = (msgBox->addButton("cancel bid", QMessageBox::AcceptRole));
     msgBox->exec();
+    OArray oarr;
+    oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
     if(msgBox->clickedButton() == bidbutton)
     {
+        int j;
+        for(j = 0; j < oarr.length(); ++j)
+            if(oarr[j].get_buyerid() == uarr[index].get_id() && oarr[j].get_cid() == carr[i].get_id() && oarr[j].get_state() == "unfinished")
+            {
+                QMessageBox::warning(this, "Auction", "You have already bid for this commodity!");
+                return;
+            }
+        if(uarr[index].get_balance() <= carr[i].get_price())
+        {
+            QMessageBox::warning(this, "Auction", "Your balance is insufficient!");
+            return;
+        }
         double bidPrice = QInputDialog::getDouble(this,"Auction","Please input your bidPrice:",0,
-                                                  carr[i].get_price(),p.get_balance(),1,&ok); //出价
+                                                  carr[i].get_price(),uarr[index].get_balance(),1,&ok); //出价
         if(!ok)
             return;
         OArray oarr;
@@ -224,25 +242,28 @@ void buyerWidget::on_auctionButton_clicked()
         char date[20];
         strftime(date, sizeof(date), "%F %T", t);
         string orderdate = date;
-        oarr.push_back(Order(orderID, carr[i].get_id(), carr[i].get_price(), bidPrice, orderdate, carr[i].get_sid(), p.get_id(), "unfinished"));
+        oarr.push_back(Order(orderID, carr[i].get_id(), carr[i].get_price(), bidPrice, orderdate, carr[i].get_sid(), uarr[index].get_id(), "unfinished"));
         oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
         QMessageBox::information(this, "INFOMATION", "Offer bid successfully!");
     }
     else if(msgBox->clickedButton() == mdfbutton)
     {
-        OArray oarr;
-        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
         int j;
         for(j = 0; j < oarr.length(); ++j)
-            if(oarr[j].get_buyerid() == p.get_id() && oarr[j].get_cid() == carr[i].get_id() && oarr[j].get_state() == "unfinished")
+            if(oarr[j].get_buyerid() == uarr[index].get_id() && oarr[j].get_cid() == carr[i].get_id() && oarr[j].get_state() == "unfinished")
                 break;
         if(j == oarr.length())
         {
             QMessageBox::warning(this, "Auction", "You haven't bid for this commodity!");
             return;
         }
+        if(uarr[index].get_balance() <= carr[i].get_price())
+        {
+            QMessageBox::warning(this, "Auction", "Your balance is insufficient!");
+            return;
+        }
         double bidPrice = QInputDialog::getDouble(this,"Auction","Please input your modified bidPrice:",0,
-                                                          carr[i].get_price(),p.get_balance(),1,&ok);
+                                                          carr[i].get_price(),uarr[index].get_balance(),1,&ok);
         if(!ok)
             return;
         oarr[j].set_bid(bidPrice);
@@ -252,15 +273,18 @@ void buyerWidget::on_auctionButton_clicked()
     else if(msgBox->clickedButton() == cancelbutton)
     {
         int j;
-        OArray oarr;
-        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
         for(j = 0; j < oarr.length(); ++j)
-            if(oarr[j].get_buyerid() == p.get_id() && oarr[j].get_cid() == carr[i].get_id() && oarr[j].get_state() == "unfinished")
+            if(oarr[j].get_buyerid() == uarr[index].get_id() && oarr[j].get_cid() == carr[i].get_id() && oarr[j].get_state() == "unfinished")
             {
                 oarr[j].set_state("canceled");
                 oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
                 QMessageBox::information(this, "INFOMATION", "Cancel bid successfully!");
             }
+        if(j == oarr.length())
+        {
+            QMessageBox::warning(this, "Auction", "You haven't bid for this commodity!");
+            return;
+        }
     }
 }
 
@@ -268,7 +292,9 @@ void buyerWidget::on_vieworderButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    QString title = QString::fromStdString(p.get_name()) + "'s history orders";
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders";
     tw->setWindowTitle(title);
     tw->resize(900,450);
     tw->setColumnCount(6);
@@ -281,7 +307,7 @@ void buyerWidget::on_vieworderButton_clicked()
     oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
     for(int i = 0; i < oarr.length(); ++i)
     {
-        if(oarr[i].get_buyerid() == p.get_id())
+        if(oarr[i].get_buyerid() == uarr[index].get_id())
         {
             int rowCount = tw->rowCount();
             tw->insertRow(rowCount);

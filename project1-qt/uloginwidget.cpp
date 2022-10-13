@@ -34,11 +34,10 @@ void uloginWidget::on_commitButton_clicked()
         QMessageBox::warning(this, "WARNING", "Password wrong! Please input your password again!");
     else
     {
-        QMessageBox::information(this, "INFOMATION", "Login successfully!");
         this->close();
         userWidget* ul_w = new userWidget;
-        connect(this,SIGNAL(sendUser(User)),ul_w,SLOT(getUser(User)));
-        emit sendUser(uarr[i]);
+        connect(this,SIGNAL(sendUserIndex(int)),ul_w,SLOT(getUserIndex(int)));
+        emit sendUserIndex(i);
         ul_w->show();
     }
 

@@ -18,7 +18,7 @@ public:
     ~sellerWidget();
 
 private slots:
-    void getUser(User p);
+    void getUserIndex(int i);
 
     void on_returnButton_clicked();
 
@@ -33,12 +33,12 @@ private slots:
     void on_vieworderButton_clicked();
 
 signals:
-    void sendUser(User);
+    void sendUserIndex(int);
     void sendCommodityIndex(int);
 
 private:
     Ui::sellerWidget *ui;
-    User p;
+    int index;
 };
 
 #endif // SELLERWIDGET_H

@@ -34,7 +34,7 @@ void adminWidget::on_viewuserButton_clicked()
     header << "userID" << "username" << "phoneNumber" << "address" << "balance" << "userstate";
     tw->setHorizontalHeaderLabels(header);
     tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tw->setEditTriggers(QAbstractItemView::NoEditTriggers); //不可编辑
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     for(int i = 0; i < uarr.length(); ++i)

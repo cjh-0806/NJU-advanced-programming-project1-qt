@@ -24,10 +24,12 @@ sellerWidget::~sellerWidget()
     delete ui;
 }
 
-void sellerWidget::getUser(User p)
+void sellerWidget::getUserIndex(int i)
 {
-    this->p = p;
-    ui->label->setText("Hello, seller " + QString::fromStdString(p.get_name()) + "! Please choose your command:");
+    this->index = i;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    ui->label->setText("Hello, seller " + QString::fromStdString(uarr[index].get_name()) + "! Please choose your command:");
 }
 
 void sellerWidget::on_returnButton_clicked()
@@ -38,8 +40,8 @@ void sellerWidget::on_returnButton_clicked()
 void sellerWidget::on_rlscommoButton_clicked()
 {
     rlscommoWidget* rc_w = new rlscommoWidget;
-    connect(this,SIGNAL(sendUser(User)),rc_w,SLOT(getUser(User)));
-    emit sendUser(p);
+    connect(this,SIGNAL(sendUserIndex(int)),rc_w,SLOT(getUserIndex(int)));
+    emit sendUserIndex(index);
     rc_w->show();
 }
 
@@ -50,12 +52,14 @@ void sellerWidget::on_rmvcommoButton_clicked()
                                            QLineEdit::Normal,"",&ok); //输入下架商品id
     if(!ok)
         return;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     CArray carr;
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     int i;
     for(i = 0; i < carr.length(); ++i)
     {
-        if (carr[i].get_id() == id.toStdString() && carr[i].get_sid() == p.get_id() && carr[i].get_state() == "onAuction")
+        if (carr[i].get_id() == id.toStdString() && carr[i].get_sid() == uarr[index].get_id() && carr[i].get_state() == "onAuction")
         { //显示下架商品信息
             QString text = "commodityname:" + QString::fromStdString(carr[i].get_name())
                     + "\nprice:" + QString::number(carr[i].get_price(),'f', 1)
@@ -89,11 +93,13 @@ void sellerWidget::on_mdfinfoButton_clicked()
                                            QLineEdit::Normal,"",&ok); //输入下架商品id
     if(!ok)
         return;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     CArray carr;
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     int i;
     for(i = 0; i < carr.length(); ++i)
-        if(carr[i].get_id() == id.toStdString() && carr[i].get_sid() == p.get_id() && carr[i].get_state() == "onAuction")
+        if(carr[i].get_id() == id.toStdString() && carr[i].get_sid() == uarr[index].get_id() && carr[i].get_state() == "onAuction")
             break;
     if (i == carr.length())
     {
@@ -119,11 +125,13 @@ void sellerWidget::on_viewcommoButton_clicked()
     tw->setHorizontalHeaderLabels(header);
     tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     CArray carr;
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     for(int i = 0; i < carr.length(); ++i)
     {
-        if(carr[i].get_sid() == p.get_id())
+        if(carr[i].get_sid() == uarr[index].get_id())
         {
             int rowCount = tw->rowCount();
             tw->insertRow(rowCount);
@@ -144,7 +152,9 @@ void sellerWidget::on_vieworderButton_clicked()
 {
     QTableWidget* tw = new QTableWidget;
     tw->setAttribute(Qt::WA_DeleteOnClose);
-    QString title = QString::fromStdString(p.get_name()) + "'s history orders(finished)";
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders(finished)";
     tw->setWindowTitle(title);
     tw->resize(750,450);
     tw->setColumnCount(5);
@@ -157,7 +167,7 @@ void sellerWidget::on_vieworderButton_clicked()
     oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
     for(int i = 0; i < oarr.length(); ++i)
     {
-        if(oarr[i].get_sellerid() == p.get_id() && oarr[i].get_state() == "finished")
+        if(oarr[i].get_sellerid() == uarr[index].get_id() && oarr[i].get_state() == "get")
         {
             int rowCount = tw->rowCount();
             tw->insertRow(rowCount);

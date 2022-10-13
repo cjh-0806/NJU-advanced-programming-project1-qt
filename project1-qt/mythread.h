@@ -5,7 +5,7 @@
 #include <QTimer>
 
 #define TIMEOUT 1*60*1000 //结算订单时间间隔：1分钟
-#define INTERVAL 10*60 //拍卖结算时间间隔：10分钟
+#define INTERVAL 5*60 //拍卖结算时间间隔：10分钟
 
 class myThread : public QThread
 {

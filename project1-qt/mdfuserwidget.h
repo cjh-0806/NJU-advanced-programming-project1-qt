@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::mdfuserWidget *ui;
-    int i;
+    int index;
 };
 
 #endif // MDFUSERWIDGET_H

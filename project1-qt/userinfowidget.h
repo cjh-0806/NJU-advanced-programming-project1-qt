@@ -32,7 +32,7 @@ signals:
 
 private:
     Ui::userinfoWidget *ui;
-    int i;
+    int index;
 };
 
 #endif // USERINFOWIDGET_H

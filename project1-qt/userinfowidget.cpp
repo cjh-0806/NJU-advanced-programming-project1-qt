@@ -20,10 +20,10 @@ userinfoWidget::~userinfoWidget()
 
 void userinfoWidget::getUserIndex(int i)
 {
-    this->i = i;
+    this->index = i;
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-    ui->label->setText("Hello, " + QString::fromStdString(uarr[i].get_name()) + "! Please choose your command:");
+    ui->label->setText("Hello, " + QString::fromStdString(uarr[index].get_name()) + "! Please choose your command:");
 }
 
 void userinfoWidget::on_returnButton_clicked()
@@ -35,10 +35,10 @@ void userinfoWidget::on_viewinfoButton_clicked()
 {
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-    QString text = "username:" + QString::fromStdString(uarr[i].get_name())
-            + "\nphone number:" + QString::fromStdString(uarr[i].get_num())
-            + "\naddress:" + QString::fromStdString(uarr[i].get_addr())
-            + "\nbalance:" + QString::number(uarr[i].get_balance(),'f',1);
+    QString text = "username:" + QString::fromStdString(uarr[index].get_name())
+            + "\nphone number:" + QString::fromStdString(uarr[index].get_num())
+            + "\naddress:" + QString::fromStdString(uarr[index].get_addr())
+            + "\nbalance:" + QString::number(uarr[index].get_balance(),'f',1);
     QMessageBox::about(this, "Information", text);
 }
 
@@ -51,8 +51,8 @@ void userinfoWidget::on_rechargeButton_clicked()
         return;
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-    bidPrice += uarr[i].get_balance();
-    uarr[i].set_balance(bidPrice);
+    bidPrice += uarr[index].get_balance();
+    uarr[index].set_balance(bidPrice);
     uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
 }
 
@@ -60,6 +60,6 @@ void userinfoWidget::on_mdfinfoButton_clicked()
 {
     mdfuserWidget* mu_w = new mdfuserWidget;
     connect(this, SIGNAL(sendUserIndex(int)),mu_w,SLOT(getUserIndex(int)));
-    emit sendUserIndex(i);
+    emit sendUserIndex(index);
     mu_w->show();
 }

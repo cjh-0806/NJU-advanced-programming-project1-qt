@@ -17,7 +17,7 @@ public:
     ~rlscommoWidget();
 
 private slots:
-    void getUser(User p);
+    void getUserIndex(int i);
 
     void on_commitButton_2_clicked();
 
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::rlscommoWidget *ui;
-    User p;
+    int index;
 };
 
 #endif // RLSCOMMOWIDGET_H

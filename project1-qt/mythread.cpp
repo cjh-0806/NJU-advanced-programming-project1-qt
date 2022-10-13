@@ -47,8 +47,8 @@ void myThread::timeoutSlot()
     nowtime = mktime(t);
     for(int i = 0; i < carr.length(); ++i)
     {
-        time_t time1 = string2time(carr[i].get_date());
-        double dTime = difftime(nowtime, time1);
+        time_t rlstime = string2time(carr[i].get_date());
+        double dTime = difftime(nowtime, rlstime); //现在时间减去商品发布时间
         if(dTime >= INTERVAL && carr[i].get_state() == "onAuction") //拍卖时间到
         {
             OArray tmparr; //暂时存放该商品的所有订单
@@ -69,6 +69,16 @@ void myThread::timeoutSlot()
             int k;
             for(k = 0; k < tmparr.length() && carr[i].get_num() > 0; ++k) //卖出商品
             {
+                time_t bidtime = string2time(tmparr[k].get_date());
+                double dTime2 = difftime(bidtime, rlstime);
+                if(dTime2 > INTERVAL) //出价时间减去商品发布时间大于INTERVAL，则不卖
+                {
+                    string orderid(tmparr[k].get_oid(), 1, 3);
+                    int oindex = stoi(orderid) - 1;
+                    oarr[oindex].set_state("finished");
+                    qDebug() << "set state finished  " << QString::fromStdString(orderid) << endl;
+                    continue;
+                }
                 string buyerid(tmparr[k].get_buyerid(), 1, 3);
                 string sellerid(tmparr[k].get_sellerid(), 1, 3);
                 int bindex = stoi(buyerid) - 1;

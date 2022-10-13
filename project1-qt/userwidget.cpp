@@ -3,13 +3,14 @@
 #include "buyerwidget.h"
 #include "sellerwidget.h"
 #include "userinfowidget.h"
+#include "user.h"
 
 userWidget::userWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::userWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, true);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 userWidget::~userWidget()
@@ -17,39 +18,35 @@ userWidget::~userWidget()
     delete ui;
 }
 
-void userWidget::getUser(User p)
+void userWidget::getUserIndex(int i)
 {
-    this->p = p;
-    ui->label->setText("Hello, " + QString::fromStdString(p.get_name()) + "! Please choose your command:");
+    this->index = i;
+    UArray uarr;
+    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    ui->label->setText("Hello, " + QString::fromStdString(uarr[i].get_name()) + "! Please choose your command:");
 }
 
 void userWidget::on_buyerButton_clicked()
 {
     buyerWidget* b_w = new buyerWidget;
-    connect(this,SIGNAL(sendUser(User)),b_w,SLOT(getUser(User)));
-    emit sendUser(p);
+    connect(this,SIGNAL(sendUserIndex(int)),b_w,SLOT(getUserIndex(int)));
+    emit sendUserIndex(index);
     b_w->show();
 }
 
 void userWidget::on_sellerButton_clicked()
 {
     sellerWidget* s_w = new sellerWidget;
-    connect(this,SIGNAL(sendUser(User)),s_w,SLOT(getUser(User)));
-    emit sendUser(p);
+    connect(this,SIGNAL(sendUserIndex(int)),s_w,SLOT(getUserIndex(int)));
+    emit sendUserIndex(index);
     s_w->show();
 }
 
 void userWidget::on_infoButton_clicked()
 {
-    UArray uarr;
-    uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-    int i;
-    for(i = 0; i < uarr.length(); ++i)
-        if(p.get_id() == uarr[i].get_id())
-            break;
     userinfoWidget* ui_w = new userinfoWidget;
     connect(this,SIGNAL(sendUserIndex(int)),ui_w,SLOT(getUserIndex(int)));
-    emit sendUserIndex(i);
+    emit sendUserIndex(index);
     ui_w->show();
 }
 

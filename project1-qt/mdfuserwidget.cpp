@@ -19,13 +19,13 @@ mdfuserWidget::~mdfuserWidget()
 
 void mdfuserWidget::getUserIndex(int i)
 {
-    this->i = i;
+    this->index = i;
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
-    ui->usernameLineEdit->setPlaceholderText(QString::fromStdString(uarr[i].get_name()));
-    ui->pswdLineEdit->setPlaceholderText(QString::fromStdString(uarr[i].get_pswd()));
-    ui->phonenumLineEdit->setPlaceholderText(QString::fromStdString(uarr[i].get_num()));
-    ui->addrLineEdit->setPlaceholderText(QString::fromStdString(uarr[i].get_addr()));
+    ui->usernameLineEdit->setPlaceholderText(QString::fromStdString(uarr[index].get_name()));
+    ui->pswdLineEdit->setPlaceholderText(QString::fromStdString(uarr[index].get_pswd()));
+    ui->phonenumLineEdit->setPlaceholderText(QString::fromStdString(uarr[index].get_num()));
+    ui->addrLineEdit->setPlaceholderText(QString::fromStdString(uarr[index].get_addr()));
 }
 
 void mdfuserWidget::on_commitButton_clicked()
@@ -38,19 +38,19 @@ void mdfuserWidget::on_commitButton_clicked()
     QString addr = ui->addrLineEdit->text();
     int j;
     for(j = 0; j < uarr.length(); ++j)
-        if(j != i && uarr[j].get_name() == name.toStdString() && uarr[j].get_state() == "active")
+        if(j != index && uarr[j].get_name() == name.toStdString() && uarr[j].get_state() == "active")
         {
             QMessageBox::warning(this, "WARNING", "This username already exists! Please reset your username!");
             break;
         }
     if(!name.isEmpty())
-        uarr[i].set_name(name.toStdString());
+        uarr[index].set_name(name.toStdString());
     if(!pswd.isEmpty())
-        uarr[i].set_pswd(pswd.toStdString());
+        uarr[index].set_pswd(pswd.toStdString());
     if(!num.isEmpty())
-        uarr[i].set_num(num.toStdString());
+        uarr[index].set_num(num.toStdString());
     if(!addr.isEmpty())
-        uarr[i].set_addr(addr.toStdString());
+        uarr[index].set_addr(addr.toStdString());
     uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QMessageBox::information(this, "INFOMATION", "Modify successfully!");
     this->close();

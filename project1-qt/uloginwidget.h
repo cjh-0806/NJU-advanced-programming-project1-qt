@@ -22,7 +22,7 @@ private slots:
     void on_cancelButton_clicked();
 
 signals:
-    void sendUser(User);
+    void sendUserIndex(int);
 
 private:
     Ui::uloginWidget *ui;
