@@ -9,6 +9,7 @@ mdfuserWidget::mdfuserWidget(QWidget *parent) :
     ui(new Ui::mdfuserWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 mdfuserWidget::~mdfuserWidget()
@@ -39,8 +40,7 @@ void mdfuserWidget::on_commitButton_clicked()
     for(j = 0; j < uarr.length(); ++j)
         if(j != i && uarr[j].get_name() == name.toStdString() && uarr[j].get_state() == "active")
         {
-            QMessageBox::warning(this, tr("WARNING"),
-                                 "This username already exists! Please reset your username!");
+            QMessageBox::warning(this, "WARNING", "This username already exists! Please reset your username!");
             break;
         }
     if(!name.isEmpty())

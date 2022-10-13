@@ -9,7 +9,7 @@ aloginWidget::aloginWidget(QWidget *parent) :
     ui(new Ui::aloginWidget)
 {
     ui->setupUi(this);
-
+    setAttribute(Qt::WA_QuitOnClose, false);
     ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
 }
 

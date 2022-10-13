@@ -10,6 +10,7 @@ userinfoWidget::userinfoWidget(QWidget *parent) :
     ui(new Ui::userinfoWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 userinfoWidget::~userinfoWidget()

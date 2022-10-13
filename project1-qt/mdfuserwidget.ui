@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Modify user's information</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -273,7 +273,7 @@
     </font>
    </property>
    <property name="text">
-    <string>User register:</string>
+    <string>Modify user's information:</string>
    </property>
   </widget>
  </widget>

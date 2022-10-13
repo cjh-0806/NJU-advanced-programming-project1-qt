@@ -266,7 +266,7 @@ public:
 
     void retranslateUi(QWidget *mdfcommoWidget)
     {
-        mdfcommoWidget->setWindowTitle(QCoreApplication::translate("mdfcommoWidget", "Form", nullptr));
+        mdfcommoWidget->setWindowTitle(QCoreApplication::translate("mdfcommoWidget", "Modify commodity information", nullptr));
         commitButton_2->setText(QCoreApplication::translate("mdfcommoWidget", "Commit", nullptr));
         cancelButton_2->setText(QCoreApplication::translate("mdfcommoWidget", "Cancel", nullptr));
         label->setText(QCoreApplication::translate("mdfcommoWidget", "Modify commodity information:", nullptr));

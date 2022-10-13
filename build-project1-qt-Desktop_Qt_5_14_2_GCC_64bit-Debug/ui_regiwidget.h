@@ -196,7 +196,7 @@ public:
 
     void retranslateUi(QWidget *regiWidget)
     {
-        regiWidget->setWindowTitle(QCoreApplication::translate("regiWidget", "user register", nullptr));
+        regiWidget->setWindowTitle(QCoreApplication::translate("regiWidget", "User register", nullptr));
         label->setText(QCoreApplication::translate("regiWidget", "User register:", nullptr));
         usernameLabel->setText(QCoreApplication::translate("regiWidget", "username:", nullptr));
         pswdLabel->setText(QCoreApplication::translate("regiWidget", "password:", nullptr));

@@ -16,6 +16,7 @@ sellerWidget::sellerWidget(QWidget *parent) :
     ui(new Ui::sellerWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 sellerWidget::~sellerWidget()

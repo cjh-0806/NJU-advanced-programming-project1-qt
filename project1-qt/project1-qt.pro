@@ -24,6 +24,7 @@ SOURCES += \
     main.cpp \
     mdfcommowidget.cpp \
     mdfuserwidget.cpp \
+    mythread.cpp \
     order.cpp \
     regiwidget.cpp \
     rlscommowidget.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     commodity.h \
     mdfcommowidget.h \
     mdfuserwidget.h \
+    mythread.h \
     order.h \
     regiwidget.h \
     rlscommowidget.h \

@@ -9,6 +9,7 @@ uloginWidget::uloginWidget(QWidget *parent) :
     ui(new Ui::uloginWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
     ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
 }
 
@@ -28,12 +29,12 @@ void uloginWidget::on_commitButton_clicked()
         if (uarr[i].get_name() == username.toStdString() && uarr[i].get_state() == "active")
             break;
     if (i == uarr.length())
-        QMessageBox::warning(this, tr("WARNING"), tr("This user doesn't exist!"));
+        QMessageBox::warning(this, "WARNING", "This user doesn't exist!");
     else if(uarr[i].get_pswd() != pswd.toStdString())
-        QMessageBox::warning(this, tr("WARNING"), tr("Password wrong! Please input your password again!"));
+        QMessageBox::warning(this, "WARNING", "Password wrong! Please input your password again!");
     else
     {
-        QMessageBox::information(this, tr("INFOMATION"), tr("Login successfully!"));
+        QMessageBox::information(this, "INFOMATION", "Login successfully!");
         this->close();
         userWidget* ul_w = new userWidget;
         connect(this,SIGNAL(sendUser(User)),ul_w,SLOT(getUser(User)));

@@ -2,6 +2,8 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QTimer>
+#include "mythread.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -14,6 +16,7 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+    void stopThread();  //停止线程
 
 private slots:
     void on_registerButton_clicked();
@@ -26,6 +29,7 @@ private slots:
 
 private:
     Ui::Widget *ui;
+    myThread *thread; //线程对象
 };
 
 #endif // WIDGET_H

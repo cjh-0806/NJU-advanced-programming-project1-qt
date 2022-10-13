@@ -17,6 +17,7 @@ buyerWidget::buyerWidget(QWidget *parent) :
     ui(new Ui::buyerWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 buyerWidget::~buyerWidget()
@@ -85,7 +86,7 @@ void buyerWidget::on_srchcommoButton_clicked()
             return;
         QTableWidget* tw = new QTableWidget;
         tw->setAttribute(Qt::WA_DeleteOnClose);
-        tw->setWindowTitle("Users");
+        tw->setWindowTitle("Search commodity");
         tw->resize(900,450);
         tw->setColumnCount(6);
         QStringList header;

@@ -108,7 +108,7 @@ public:
 
     void retranslateUi(QWidget *Widget)
     {
-        Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
+        Widget->setWindowTitle(QCoreApplication::translate("Widget", "Main window", nullptr));
         welcomeLabel->setText(QCoreApplication::translate("Widget", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt;\">Welcome commodity auction platform!</span></p></body></html>", nullptr));
         uloginButton->setText(QCoreApplication::translate("Widget", "User login", nullptr));
         registerButton->setText(QCoreApplication::translate("Widget", "User register", nullptr));

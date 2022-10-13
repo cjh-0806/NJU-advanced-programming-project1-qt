@@ -9,6 +9,7 @@ userWidget::userWidget(QWidget *parent) :
     ui(new Ui::userWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, true);
 }
 
 userWidget::~userWidget()

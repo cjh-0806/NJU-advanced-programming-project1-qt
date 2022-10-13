@@ -15,6 +15,7 @@ adminWidget::adminWidget(QWidget *parent) :
     ui(new Ui::adminWidget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 adminWidget::~adminWidget()

@@ -196,7 +196,7 @@ public:
 
     void retranslateUi(QWidget *mdfuserWidget)
     {
-        mdfuserWidget->setWindowTitle(QCoreApplication::translate("mdfuserWidget", "Form", nullptr));
+        mdfuserWidget->setWindowTitle(QCoreApplication::translate("mdfuserWidget", "Modify user's information", nullptr));
         usernameLabel->setText(QCoreApplication::translate("mdfuserWidget", "username:", nullptr));
         pswdLabel->setText(QCoreApplication::translate("mdfuserWidget", "password:", nullptr));
         phonenumLabel->setText(QCoreApplication::translate("mdfuserWidget", "phonenumber:", nullptr));
@@ -207,7 +207,7 @@ public:
         addrTip->setText(QCoreApplication::translate("mdfuserWidget", "<html><head/><body><p><span style=\" color:#204a87;\">(no more than 40 letters)</span></p></body></html>", nullptr));
         commitButton->setText(QCoreApplication::translate("mdfuserWidget", "Commit", nullptr));
         cancelButton->setText(QCoreApplication::translate("mdfuserWidget", "Cancel", nullptr));
-        label->setText(QCoreApplication::translate("mdfuserWidget", "User register:", nullptr));
+        label->setText(QCoreApplication::translate("mdfuserWidget", "Modify user's information:", nullptr));
     } // retranslateUi
 
 };

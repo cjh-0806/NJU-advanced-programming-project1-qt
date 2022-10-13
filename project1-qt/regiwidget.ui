@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>user register</string>
+   <string>User register</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">

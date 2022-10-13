@@ -3,6 +3,9 @@
 #include "regiwidget.h"
 #include "uloginwidget.h"
 #include "aloginwidget.h"
+#include "commodity.h"
+#include "order.h"
+
 #include <QDebug>
 
 Widget::Widget(QWidget *parent)
@@ -10,8 +13,15 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, true);
     QPixmap pix("/home/cjh/Pictures/auction.jpg");
     ui->picLabel->setPixmap(pix);
+
+    thread = new myThread();  //分配空间
+    connect(this, &Widget::destroyed, this, &Widget::stopThread);
+
+    thread->start();
+    qDebug() << "start timer" << endl; //会输出
 }
 
 Widget::~Widget()
@@ -40,4 +50,14 @@ void Widget::on_aloginButton_clicked()
 void Widget::on_exitButton_clicked()
 {
     this->close();
+}
+
+void Widget::stopThread()
+{
+    //停止线程
+    thread->quit();
+
+    //等待线程处理完手头工作
+    thread->wait();
+    qDebug() << "stop timer" << endl;
 }

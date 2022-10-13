@@ -124,7 +124,7 @@ public:
 
     void retranslateUi(QWidget *uloginWidget)
     {
-        uloginWidget->setWindowTitle(QCoreApplication::translate("uloginWidget", "user login", nullptr));
+        uloginWidget->setWindowTitle(QCoreApplication::translate("uloginWidget", "User login", nullptr));
         commitButton->setText(QCoreApplication::translate("uloginWidget", "Commit", nullptr));
         cancelButton->setText(QCoreApplication::translate("uloginWidget", "Cancel", nullptr));
         label->setText(QCoreApplication::translate("uloginWidget", "User login:", nullptr));

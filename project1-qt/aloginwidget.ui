@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>administrator login</string>
+   <string>Administrator login</string>
   </property>
   <widget class="QWidget" name="layoutWidget_2">
    <property name="geometry">

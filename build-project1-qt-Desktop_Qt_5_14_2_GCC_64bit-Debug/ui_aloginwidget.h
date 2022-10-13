@@ -124,7 +124,7 @@ public:
 
     void retranslateUi(QWidget *aloginWidget)
     {
-        aloginWidget->setWindowTitle(QCoreApplication::translate("aloginWidget", "administrator login", nullptr));
+        aloginWidget->setWindowTitle(QCoreApplication::translate("aloginWidget", "Administrator login", nullptr));
         commitButton->setText(QCoreApplication::translate("aloginWidget", "Commit", nullptr));
         cancelButton->setText(QCoreApplication::translate("aloginWidget", "Cancel", nullptr));
         adminnameLabel->setText(QCoreApplication::translate("aloginWidget", "adminname:", nullptr));

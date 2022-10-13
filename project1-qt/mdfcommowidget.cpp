@@ -14,7 +14,7 @@ mdfcommoWidget::mdfcommoWidget(QWidget *parent) :
     ui(new Ui::mdfcommoWidget)
 {
     ui->setupUi(this);
-
+    setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
     ui->priceLineEdit->setValidator(new QDoubleValidator(0, 100000, 1));
     ui->numLineEdit->setValidator(new QIntValidator);
