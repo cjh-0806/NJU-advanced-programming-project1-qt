@@ -16,7 +16,7 @@ mdfcommoWidget::mdfcommoWidget(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
-    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 100000, 1));
+    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 10000000, 1));
     ui->numLineEdit->setValidator(new QIntValidator);
     ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,200}")));
 }
@@ -28,7 +28,7 @@ mdfcommoWidget::~mdfcommoWidget()
 
 void mdfcommoWidget::getCommodityIndex(int i)
 {
-    this->i = i;
+    this->index = i;
     CArray carr;
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     ui->cnameLineEdit->setPlaceholderText(QString::fromStdString(carr[i].get_name()));
@@ -58,6 +58,11 @@ void mdfcommoWidget::on_commitButton_2_clicked()
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     QString cname = ui->cnameLineEdit->text();
     QString price = ui->priceLineEdit->text();
+    if(!price.isEmpty() && carr[index].get_price() < price.toFloat())
+    {
+        QMessageBox::warning(this, "WARNING", "You can't increase the price!");
+        return;
+    }
     QString num = ui->numLineEdit->text();
     QString desc = ui->descLineEdit->text();
     QButtonGroup *btnGroup = new QButtonGroup;
@@ -82,14 +87,14 @@ void mdfcommoWidget::on_commitButton_2_clicked()
     case 7: attr = 8; break;
     }
     if(!cname.isEmpty())
-        carr[i].set_name(cname.toStdString());
+        carr[index].set_name(cname.toStdString());
     if(!price.isEmpty())
-        carr[i].set_price(price.toFloat());
+        carr[index].set_price(price.toFloat());
     if(!num.isEmpty())
-        carr[i].set_num(num.toInt());
+        carr[index].set_num(num.toInt());
     if(!desc.isEmpty())
-        carr[i].set_attr(desc.toStdString());
-    carr[i].set_attr(category[attr]);
+        carr[index].set_attr(desc.toStdString());
+    carr[index].set_attr(category[attr]);
     carr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
     QMessageBox::information(this, "INFOMATION", "Modify successfully!");
     this->close();

@@ -46,11 +46,16 @@ void userinfoWidget::on_rechargeButton_clicked()
 {
     bool ok;
     double bidPrice = QInputDialog::getDouble(this,"Recharge","Please input the amount you want to recharge:",0,
-                                              0,2147483647,1,&ok);
+                                              0,10000000,1,&ok); //一千万不能再多了
     if(!ok)
         return;
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    if(uarr[index].get_balance() + bidPrice > INT_MAX)
+    {
+        QMessageBox::warning(this, "WARNING", "Too much balance!");
+        return;
+    }
     bidPrice += uarr[index].get_balance();
     uarr[index].set_balance(bidPrice);
     uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");

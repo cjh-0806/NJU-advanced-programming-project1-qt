@@ -46,7 +46,7 @@ public:
         sellerWidget->resize(600, 450);
         label = new QLabel(sellerWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, 80, 391, 21));
+        label->setGeometry(QRect(50, 80, 451, 21));
         QFont font;
         font.setPointSize(14);
         label->setFont(font);

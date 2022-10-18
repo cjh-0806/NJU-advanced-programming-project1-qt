@@ -28,7 +28,7 @@ void userWidget::getUserIndex(int i)
 
 void userWidget::on_buyerButton_clicked()
 {
-    buyerWidget* b_w = new buyerWidget;
+    buyerWidget* b_w = new buyerWidget();
     connect(this,SIGNAL(sendUserIndex(int)),b_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     b_w->show();

@@ -48,7 +48,7 @@ public:
         buyerWidget->setMaximumSize(QSize(600, 450));
         label = new QLabel(buyerWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, 80, 401, 21));
+        label->setGeometry(QRect(50, 80, 451, 21));
         QFont font;
         font.setPointSize(14);
         label->setFont(font);

@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::mdfcommoWidget *ui;
-    int i;
+    int index;
 };
 
 #endif // MDFCOMMOWIDGET_H
