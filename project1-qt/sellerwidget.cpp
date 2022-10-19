@@ -1,27 +1,38 @@
 #include "sellerwidget.h"
 #include "ui_sellerwidget.h"
-#include "rlscommowidget.h"
-#include "mdfcommowidget.h"
 #include "user.h"
 #include "commodity.h"
 #include "order.h"
 
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QTableWidget>
 #include <QHeaderView>
 
 sellerWidget::sellerWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::sellerWidget)
+    ui(new Ui::sellerWidget),
+    rc_w(nullptr), mc_w(nullptr), vc_tw(nullptr), vo_tw(nullptr)
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
 }
 
+void sellerWidget::closeEvent(QCloseEvent *event)
+{
+    if(rc_w) rc_w->close();
+    if(mc_w) mc_w->close();
+    if(vc_tw) vc_tw->close();
+    if(vo_tw) vo_tw->close();
+    event->accept();
+}
+
 sellerWidget::~sellerWidget()
 {
     delete ui;
+    delete rc_w;
+    delete mc_w;
+    delete vc_tw;
+    delete vo_tw;
 }
 
 void sellerWidget::getUserIndex(int i)
@@ -39,7 +50,7 @@ void sellerWidget::on_returnButton_clicked()
 
 void sellerWidget::on_rlscommoButton_clicked()
 {
-    rlscommoWidget* rc_w = new rlscommoWidget;
+    rc_w = new rlscommoWidget;
     connect(this,SIGNAL(sendUserIndex(int)),rc_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     rc_w->show();
@@ -106,7 +117,7 @@ void sellerWidget::on_mdfinfoButton_clicked()
         QMessageBox::warning(this, "Modify commodity information", "This commodity doesn't exist!");
         return;
     }
-    mdfcommoWidget* mc_w = new mdfcommoWidget;
+    mc_w = new mdfcommoWidget;
     connect(this, SIGNAL(sendCommodityIndex(int)),mc_w,SLOT(getCommodityIndex(int)));
     emit sendCommodityIndex(i);
     mc_w->show();
@@ -114,17 +125,17 @@ void sellerWidget::on_mdfinfoButton_clicked()
 
 void sellerWidget::on_viewcommoButton_clicked()
 {
-    QTableWidget* tw = new QTableWidget;
-    tw->setAttribute(Qt::WA_DeleteOnClose);
-    tw->setWindowTitle("View released commodity");
-    tw->resize(1200,450);
-    tw->setColumnCount(8);
+    vc_tw = new QTableWidget;
+    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vc_tw->setWindowTitle("View released commodity");
+    vc_tw->resize(1200,450);
+    vc_tw->setColumnCount(8);
     QStringList header;
     header << "commodityID" << "commodityname" << "price" << "number"
            << "attribute" << "description" << "addedDate" << "state";
-    tw->setHorizontalHeaderLabels(header);
-    tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    vc_tw->setHorizontalHeaderLabels(header);
+    vc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    vc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     CArray carr;
@@ -133,50 +144,50 @@ void sellerWidget::on_viewcommoButton_clicked()
     {
         if(carr[i].get_sid() == uarr[index].get_id())
         {
-            int rowCount = tw->rowCount();
-            tw->insertRow(rowCount);
-            tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
-            tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
-            tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
-            tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-            tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-            tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
-            tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_date())));
-            tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(carr[i].get_state())));
+            int rowCount = vc_tw->rowCount();
+            vc_tw->insertRow(rowCount);
+            vc_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
+            vc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
+            vc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
+            vc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
+            vc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+            vc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+            vc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_date())));
+            vc_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(carr[i].get_state())));
         }
     }
-    tw->show();
+    vc_tw->show();
 }
 
 void sellerWidget::on_vieworderButton_clicked()
 {
-    QTableWidget* tw = new QTableWidget;
-    tw->setAttribute(Qt::WA_DeleteOnClose);
+    vo_tw = new QTableWidget;
+    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders(finished)";
-    tw->setWindowTitle(title);
-    tw->resize(750,450);
-    tw->setColumnCount(5);
+    vo_tw->setWindowTitle(title);
+    vo_tw->resize(750,450);
+    vo_tw->setColumnCount(5);
     QStringList header;
     header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date";
-    tw->setHorizontalHeaderLabels(header);
-    tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    vo_tw->setHorizontalHeaderLabels(header);
+    vo_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    vo_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
     OArray oarr;
     oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
     for(int i = 0; i < oarr.length(); ++i)
     {
         if(oarr[i].get_sellerid() == uarr[index].get_id() && oarr[i].get_state() == "get")
         {
-            int rowCount = tw->rowCount();
-            tw->insertRow(rowCount);
-            tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
-            tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
-            tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
-            tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
-            tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+            int rowCount = vo_tw->rowCount();
+            vo_tw->insertRow(rowCount);
+            vo_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
+            vo_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
+            vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
+            vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
+            vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
         }
     }
-    tw->show();
+    vo_tw->show();
 }

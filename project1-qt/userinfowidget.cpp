@@ -1,21 +1,28 @@
 #include "userinfowidget.h"
 #include "ui_userinfowidget.h"
-#include "mdfuserwidget.h"
 
 #include <QMessageBox>
 #include <QInputDialog>
 
 userinfoWidget::userinfoWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::userinfoWidget)
+    ui(new Ui::userinfoWidget),
+    mu_w(nullptr)
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
 }
 
+void userinfoWidget::closeEvent(QCloseEvent *event)
+{
+    if(mu_w) mu_w->close();
+    event->accept();
+}
+
 userinfoWidget::~userinfoWidget()
 {
     delete ui;
+    delete mu_w;
 }
 
 void userinfoWidget::getUserIndex(int i)
@@ -63,7 +70,7 @@ void userinfoWidget::on_rechargeButton_clicked()
 
 void userinfoWidget::on_mdfinfoButton_clicked()
 {
-    mdfuserWidget* mu_w = new mdfuserWidget;
+    mu_w = new mdfuserWidget;
     connect(this, SIGNAL(sendUserIndex(int)),mu_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     mu_w->show();

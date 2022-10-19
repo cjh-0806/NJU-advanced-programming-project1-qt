@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "user.h"
+#include "buyerwidget.h"
+#include "sellerwidget.h"
+#include "userinfowidget.h"
 
 namespace Ui {
 class userWidget;
@@ -14,6 +17,7 @@ class userWidget : public QWidget
 
 public:
     explicit userWidget(QWidget *parent = nullptr);
+    void closeEvent(QCloseEvent *event);
     ~userWidget();
 
 private slots:
@@ -33,6 +37,9 @@ signals:
 private:
     Ui::userWidget *ui;
     int index;
+    buyerWidget *b_w;
+    sellerWidget *s_w;
+    userinfoWidget *ui_w;
 };
 
 #endif // USERWIDGET_H

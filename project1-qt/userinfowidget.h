@@ -1,8 +1,10 @@
 #ifndef USERINFOWIDGET_H
 #define USERINFOWIDGET_H
 #include "user.h"
+#include "mdfuserwidget.h"
 
 #include <QWidget>
+#include <QCloseEvent>
 
 namespace Ui {
 class userinfoWidget;
@@ -14,6 +16,7 @@ class userinfoWidget : public QWidget
 
 public:
     explicit userinfoWidget(QWidget *parent = nullptr);
+    void closeEvent(QCloseEvent *event);
     ~userinfoWidget();
 
 private slots:
@@ -33,6 +36,7 @@ signals:
 private:
     Ui::userinfoWidget *ui;
     int index;
+    mdfuserWidget* mu_w;
 };
 
 #endif // USERINFOWIDGET_H
