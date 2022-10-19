@@ -101,7 +101,7 @@ void sellerWidget::on_mdfinfoButton_clicked()
 {
     bool ok;
     QString id = QInputDialog::getText(this,"Modify commodity information","Please input the commodityID you want to modify:",
-                                           QLineEdit::Normal,"",&ok); //输入下架商品id
+                                           QLineEdit::Normal,"",&ok); //输入要修改的商品id
     if(!ok)
         return;
     UArray uarr;
@@ -131,7 +131,7 @@ void sellerWidget::on_viewcommoButton_clicked()
     vc_tw->resize(1200,450);
     vc_tw->setColumnCount(8);
     QStringList header;
-    header << "commodityID" << "commodityname" << "price" << "number"
+    header << "commodityID" << "commodityname" << "basePrice" << "number"
            << "attribute" << "description" << "addedDate" << "state";
     vc_tw->setHorizontalHeaderLabels(header);
     vc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -167,10 +167,10 @@ void sellerWidget::on_vieworderButton_clicked()
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders(finished)";
     vo_tw->setWindowTitle(title);
-    vo_tw->resize(750,450);
-    vo_tw->setColumnCount(5);
+    vo_tw->resize(900,450);
+    vo_tw->setColumnCount(6);
     QStringList header;
-    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date";
+    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "buyerID" << "date";
     vo_tw->setHorizontalHeaderLabels(header);
     vo_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     vo_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -186,6 +186,7 @@ void sellerWidget::on_vieworderButton_clicked()
             vo_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
             vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
             vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
+            vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
             vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
         }
     }

@@ -24,20 +24,22 @@ class Ui_buyerWidget
 {
 public:
     QLabel *label;
-    QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
+    QWidget *widget;
     QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout;
     QPushButton *returnButton;
-    QSpacerItem *horizontalSpacer;
-    QPushButton *viewcommoButton;
-    QSpacerItem *horizontalSpacer_2;
-    QPushButton *srchcommoButton;
-    QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *verticalSpacer;
     QPushButton *auctionButton;
-    QSpacerItem *horizontalSpacer_4;
+    QSpacerItem *horizontalSpacer_2;
+    QVBoxLayout *verticalLayout_2;
+    QPushButton *viewcommoButton;
+    QSpacerItem *verticalSpacer_2;
     QPushButton *vieworderButton;
-    QSpacerItem *horizontalSpacer_5;
+    QSpacerItem *horizontalSpacer_3;
+    QVBoxLayout *verticalLayout_3;
+    QPushButton *srchcommoButton;
+    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *horizontalSpacer;
 
     void setupUi(QWidget *buyerWidget)
     {
@@ -52,73 +54,82 @@ public:
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
-        layoutWidget = new QWidget(buyerWidget);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(40, 150, 491, 191));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout = new QHBoxLayout();
+        widget = new QWidget(buyerWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(30, 160, 501, 141));
+        horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        returnButton = new QPushButton(layoutWidget);
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        returnButton = new QPushButton(widget);
         returnButton->setObjectName(QString::fromUtf8("returnButton"));
         QFont font1;
         font1.setPointSize(12);
         returnButton->setFont(font1);
 
-        horizontalLayout->addWidget(returnButton);
+        verticalLayout->addWidget(returnButton);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        horizontalLayout->addItem(horizontalSpacer);
+        verticalLayout->addItem(verticalSpacer);
 
-        viewcommoButton = new QPushButton(layoutWidget);
-        viewcommoButton->setObjectName(QString::fromUtf8("viewcommoButton"));
-        viewcommoButton->setFont(font1);
+        auctionButton = new QPushButton(widget);
+        auctionButton->setObjectName(QString::fromUtf8("auctionButton"));
+        auctionButton->setFont(font1);
 
-        horizontalLayout->addWidget(viewcommoButton);
+        verticalLayout->addWidget(auctionButton);
+
+
+        horizontalLayout->addLayout(verticalLayout);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        srchcommoButton = new QPushButton(layoutWidget);
-        srchcommoButton->setObjectName(QString::fromUtf8("srchcommoButton"));
-        srchcommoButton->setFont(font1);
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        viewcommoButton = new QPushButton(widget);
+        viewcommoButton->setObjectName(QString::fromUtf8("viewcommoButton"));
+        viewcommoButton->setFont(font1);
 
-        horizontalLayout->addWidget(srchcommoButton);
+        verticalLayout_2->addWidget(viewcommoButton);
 
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addLayout(horizontalLayout);
+        verticalLayout_2->addItem(verticalSpacer_2);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
-
-        auctionButton = new QPushButton(layoutWidget);
-        auctionButton->setObjectName(QString::fromUtf8("auctionButton"));
-        auctionButton->setFont(font1);
-
-        horizontalLayout_2->addWidget(auctionButton);
-
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_4);
-
-        vieworderButton = new QPushButton(layoutWidget);
+        vieworderButton = new QPushButton(widget);
         vieworderButton->setObjectName(QString::fromUtf8("vieworderButton"));
         vieworderButton->setFont(font1);
 
-        horizontalLayout_2->addWidget(vieworderButton);
-
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_5);
+        verticalLayout_2->addWidget(vieworderButton);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        horizontalLayout->addLayout(verticalLayout_2);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_3);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        srchcommoButton = new QPushButton(widget);
+        srchcommoButton->setObjectName(QString::fromUtf8("srchcommoButton"));
+        srchcommoButton->setFont(font1);
+
+        verticalLayout_3->addWidget(srchcommoButton);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer_3);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        verticalLayout_3->addItem(horizontalSpacer);
+
+
+        horizontalLayout->addLayout(verticalLayout_3);
 
 
         retranslateUi(buyerWidget);
@@ -131,10 +142,10 @@ public:
         buyerWidget->setWindowTitle(QCoreApplication::translate("buyerWidget", "Buyer", nullptr));
         label->setText(QString());
         returnButton->setText(QCoreApplication::translate("buyerWidget", "Return", nullptr));
-        viewcommoButton->setText(QCoreApplication::translate("buyerWidget", "View commodity", nullptr));
-        srchcommoButton->setText(QCoreApplication::translate("buyerWidget", "Search commodity", nullptr));
         auctionButton->setText(QCoreApplication::translate("buyerWidget", "Auction", nullptr));
+        viewcommoButton->setText(QCoreApplication::translate("buyerWidget", "View commodity", nullptr));
         vieworderButton->setText(QCoreApplication::translate("buyerWidget", "View order history", nullptr));
+        srchcommoButton->setText(QCoreApplication::translate("buyerWidget", "Search commodity", nullptr));
     } // retranslateUi
 
 };

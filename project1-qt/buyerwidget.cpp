@@ -54,10 +54,10 @@ void buyerWidget::on_viewcommoButton_clicked()
     vc_tw = new QTableWidget;
     vc_tw->setAttribute(Qt::WA_DeleteOnClose);
     vc_tw->setWindowTitle("View commodity");
-    vc_tw->resize(900,450);
-    vc_tw->setColumnCount(6);
+    vc_tw->resize(1050,450);
+    vc_tw->setColumnCount(7);
     QStringList header;
-    header << "commodityID" << "commodityname" << "basePrice" << "number" << "attribute" << "description";
+    header << "commodityID" << "commodityname" << "basePrice" << "number" << "sellerID" << "attribute" << "description";
     vc_tw->setHorizontalHeaderLabels(header);
     vc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     vc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -73,8 +73,9 @@ void buyerWidget::on_viewcommoButton_clicked()
             vc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
             vc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
             vc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-            vc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-            vc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+            vc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+            vc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+            vc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
         }
     }
     vc_tw->show();
@@ -87,8 +88,11 @@ void buyerWidget::on_srchcommoButton_clicked()
     msgBox->setWindowTitle("Search commodity");
     msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
-    QPushButton *attrbutton = (msgBox->addButton("attribute", QMessageBox::AcceptRole));
     QPushButton *namebutton = (msgBox->addButton("name", QMessageBox::AcceptRole));
+    QPushButton *attrbutton = (msgBox->addButton("attribute", QMessageBox::AcceptRole));
+    QPushButton *idbutton = (msgBox->addButton("sellerID", QMessageBox::AcceptRole));
+    msgBox->setDefaultButton(QMessageBox::Cancel);
+    msgBox->setStyleSheet("* { button-layout: 0 }");
     msgBox->exec();
     if(msgBox->clickedButton() == namebutton)
     { //按名称搜索
@@ -100,10 +104,10 @@ void buyerWidget::on_srchcommoButton_clicked()
         sc_tw = new QTableWidget;
         sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
-        sc_tw->resize(900,450);
-        sc_tw->setColumnCount(6);
+        sc_tw->resize(1050,450);
+        sc_tw->setColumnCount(7);
         QStringList header;
-        header << "commodityID" << "commodityname" << "price" << "number" << "attribute" << "description";
+        header << "commodityID" << "commodityname" << "price" << "number" << "sellerID" << "attribute" << "description";
         sc_tw->setHorizontalHeaderLabels(header);
         sc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         sc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -119,8 +123,9 @@ void buyerWidget::on_srchcommoButton_clicked()
                sc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
                sc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
                sc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-               sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-               sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+               sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+               sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+               sc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
            }
         }
         sc_tw->show();
@@ -132,14 +137,16 @@ void buyerWidget::on_srchcommoButton_clicked()
         box2->setWindowTitle("Search commodity");
         box2->setText("Please choose the attribute you want to search:");
         box2->setStandardButtons(QMessageBox::Cancel);
-        QPushButton *button8 = (box2->addButton("other", QMessageBox::AcceptRole));
-        QPushButton *button7 = (box2->addButton("digital", QMessageBox::AcceptRole));
-        QPushButton *button6 = (box2->addButton("ornament", QMessageBox::AcceptRole));
-        QPushButton *button5 = (box2->addButton("makeup", QMessageBox::AcceptRole));
-        QPushButton *button4 = (box2->addButton("clothes", QMessageBox::AcceptRole));
-        QPushButton *button3 = (box2->addButton("food", QMessageBox::AcceptRole));
-        QPushButton *button2 = (box2->addButton("study", QMessageBox::AcceptRole));
         QPushButton *button1 = (box2->addButton("life", QMessageBox::AcceptRole));
+        QPushButton *button2 = (box2->addButton("study", QMessageBox::AcceptRole));
+        QPushButton *button3 = (box2->addButton("food", QMessageBox::AcceptRole));
+        QPushButton *button4 = (box2->addButton("clothes", QMessageBox::AcceptRole));
+        QPushButton *button5 = (box2->addButton("makeup", QMessageBox::AcceptRole));
+        QPushButton *button6 = (box2->addButton("ornament", QMessageBox::AcceptRole));
+        QPushButton *button7 = (box2->addButton("digital", QMessageBox::AcceptRole));
+        QPushButton *button8 = (box2->addButton("other", QMessageBox::AcceptRole));
+        box2->setDefaultButton(QMessageBox::Cancel);
+        box2->setStyleSheet("* { button-layout: 0 }");
         box2->exec();
         int attr;
         if(box2->clickedButton() == button1) attr = 1;
@@ -154,10 +161,10 @@ void buyerWidget::on_srchcommoButton_clicked()
         sc_tw = new QTableWidget;
         sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
-        sc_tw->resize(900,450);
-        sc_tw->setColumnCount(6);
+        sc_tw->resize(1050,450);
+        sc_tw->setColumnCount(7);
         QStringList header;
-        header << "commodityID" << "commodityname" << "price" << "number" << "attribute" << "description";
+        header << "commodityID" << "commodityname" << "price" << "number" << "sellerID" << "attribute" << "description";
         sc_tw->setHorizontalHeaderLabels(header);
         sc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         sc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -173,9 +180,46 @@ void buyerWidget::on_srchcommoButton_clicked()
                 sc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
                 sc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
                 sc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
-                sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
-                sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+                sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+                sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+                sc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
             }
+        }
+        sc_tw->show();
+    }
+    else if(msgBox->clickedButton() == idbutton)
+    { //按卖家ID搜索
+        bool ok;
+        QString sid = QInputDialog::getText(this,"Search commodity","Please input the sellerID:",
+                                            QLineEdit::Normal,"",&ok); //输入卖家ID
+        if(!ok)
+            return;
+        sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowTitle("Search commodity");
+        sc_tw->resize(1050,450);
+        sc_tw->setColumnCount(7);
+        QStringList header;
+        header << "commodityID" << "commodityname" << "price" << "number" << "sellerID" << "attribute" << "description";
+        sc_tw->setHorizontalHeaderLabels(header);
+        sc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        sc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        CArray carr;
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        for(int i = 0; i < carr.length(); ++i)
+        {
+           if (carr[i].get_sid() == sid.toStdString() && carr[i].get_state() == "onAuction")
+           {
+               int rowCount = sc_tw->rowCount();
+               sc_tw->insertRow(rowCount);
+               sc_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
+               sc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
+               sc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
+               sc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
+               sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+               sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+               sc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+           }
         }
         sc_tw->show();
     }
@@ -222,6 +266,8 @@ void buyerWidget::on_auctionButton_clicked()
     QPushButton *bidbutton = (msgBox->addButton("offer bid", QMessageBox::AcceptRole));
     QPushButton *mdfbutton = (msgBox->addButton("modify bid", QMessageBox::AcceptRole));
     QPushButton *cancelbutton = (msgBox->addButton("cancel bid", QMessageBox::AcceptRole));
+    msgBox->setDefaultButton(QMessageBox::Close);
+    msgBox->setStyleSheet("* { button-layout: 0 }");
     msgBox->exec();
     OArray oarr;
     oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
@@ -307,10 +353,10 @@ void buyerWidget::on_vieworderButton_clicked()
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders";
     vo_tw->setWindowTitle(title);
-    vo_tw->resize(900,450);
-    vo_tw->setColumnCount(6);
+    vo_tw->resize(1050,450);
+    vo_tw->setColumnCount(7);
     QStringList header;
-    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "state";
+    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "sellerID" << "date" << "state";
     vo_tw->setHorizontalHeaderLabels(header);
     vo_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     vo_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -326,8 +372,9 @@ void buyerWidget::on_vieworderButton_clicked()
             vo_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
             vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
             vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
-            vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
-            vo_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
+            vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_sellerid())));
+            vo_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+            vo_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
         }
     }
     vo_tw->show();

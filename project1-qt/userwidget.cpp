@@ -15,19 +15,10 @@ userWidget::userWidget(QWidget *parent) :
 
 void userWidget::closeEvent(QCloseEvent *event)
 {
-    QMessageBox::StandardButton button;
-    button = QMessageBox::question(this,"Close widget","Do you want to close this widget?",QMessageBox::Yes|QMessageBox::No);
-    if(button == QMessageBox::Yes)
-    {
-        if(b_w) b_w->close();
-        if(s_w) s_w->close();
-        if(ui_w) ui_w->close();
-        event->accept();
-    }
-    else
-    {
-        event->ignore();
-    }
+    if(b_w) b_w->close();
+    if(s_w) s_w->close();
+    if(ui_w) ui_w->close();
+    event->accept();
 }
 
 userWidget::~userWidget()

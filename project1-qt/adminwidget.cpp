@@ -8,11 +8,12 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QDebug>
 
 adminWidget::adminWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::adminWidget),
-    vu_tw(nullptr), vc_tw(nullptr), sc_tw(nullptr), vo_tw(nullptr)
+    vu_tw(nullptr), vc_tw(nullptr), sc_tw(nullptr), vo_tw(nullptr), so_tw(nullptr)
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
@@ -20,20 +21,12 @@ adminWidget::adminWidget(QWidget *parent) :
 
 void adminWidget::closeEvent(QCloseEvent *event)
 {
-    QMessageBox::StandardButton button;
-    button = QMessageBox::question(this,"Close widget","Do you want to close this widget?",QMessageBox::Yes|QMessageBox::No);
-    if(button == QMessageBox::Yes)
-    {
-        if(vu_tw) vu_tw->close();
-        if(vc_tw) vc_tw->close();
-        if(sc_tw) sc_tw->close();
-        if(vo_tw) vo_tw->close();
-        event->accept();
-    }
-    else
-    {
-        event->ignore();
-    }
+    if(vu_tw) {vu_tw->close();qDebug() << "close vu_tw" << endl;}
+    if(vc_tw) vc_tw->close();
+    if(sc_tw) sc_tw->close();
+    if(vo_tw) vo_tw->close();
+    if(so_tw) so_tw->close();
+    event->accept();
 }
 
 adminWidget::~adminWidget()
@@ -43,6 +36,7 @@ adminWidget::~adminWidget()
     delete vc_tw;
     delete sc_tw;
     delete vo_tw;
+    delete so_tw;
 }
 
 void adminWidget::on_viewuserButton_clicked()
@@ -119,36 +113,6 @@ void adminWidget::on_banuserButton_clicked()
         QMessageBox::warning(this, "Ban user", "This user doesn't exist or has already be banned!");
 }
 
-void adminWidget::on_vieworderButton_clicked()
-{
-    vo_tw = new QTableWidget;
-    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
-    vo_tw->setWindowTitle("View orders");
-    vo_tw->resize(1200,450);
-    vo_tw->setColumnCount(8);
-    QStringList header;
-    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "sellerID" << "buyerID" << "state";
-    vo_tw->setHorizontalHeaderLabels(header);
-    vo_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    vo_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    OArray oarr;
-    oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
-    for(int i = 0; i < oarr.length(); ++i)
-    {
-        int rowCount = vo_tw->rowCount();
-        vo_tw->insertRow(rowCount);
-        vo_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
-        vo_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
-        vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
-        vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
-        vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
-        vo_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_sellerid())));
-        vo_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
-        vo_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
-    }
-    vo_tw->show();
-}
-
 void adminWidget::on_viewcommoButton_clicked()
 {
     vc_tw = new QTableWidget;
@@ -188,8 +152,11 @@ void adminWidget::on_srchcommoButton_clicked()
     msgBox->setWindowTitle("Search commodity");
     msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
-    QPushButton *attrbutton = (msgBox->addButton("attribute", QMessageBox::AcceptRole));
     QPushButton *namebutton = (msgBox->addButton("name", QMessageBox::AcceptRole));
+    QPushButton *attrbutton = (msgBox->addButton("attribute", QMessageBox::AcceptRole));
+    QPushButton *idbutton = (msgBox->addButton("sellerID", QMessageBox::AcceptRole));
+    msgBox->setDefaultButton(QMessageBox::Cancel);
+    msgBox->setStyleSheet("* { button-layout: 0 }");
     msgBox->exec();
     if(msgBox->clickedButton() == namebutton)
     { //按名称搜索
@@ -237,14 +204,16 @@ void adminWidget::on_srchcommoButton_clicked()
         box2->setWindowTitle("Search commodity");
         box2->setText("Please choose the attribute you want to search:");
         box2->setStandardButtons(QMessageBox::Cancel);
-        QPushButton *button8 = (box2->addButton("other", QMessageBox::AcceptRole));
-        QPushButton *button7 = (box2->addButton("digital", QMessageBox::AcceptRole));
-        QPushButton *button6 = (box2->addButton("ornament", QMessageBox::AcceptRole));
-        QPushButton *button5 = (box2->addButton("makeup", QMessageBox::AcceptRole));
-        QPushButton *button4 = (box2->addButton("clothes", QMessageBox::AcceptRole));
-        QPushButton *button3 = (box2->addButton("food", QMessageBox::AcceptRole));
-        QPushButton *button2 = (box2->addButton("study", QMessageBox::AcceptRole));
         QPushButton *button1 = (box2->addButton("life", QMessageBox::AcceptRole));
+        QPushButton *button2 = (box2->addButton("study", QMessageBox::AcceptRole));
+        QPushButton *button3 = (box2->addButton("food", QMessageBox::AcceptRole));
+        QPushButton *button4 = (box2->addButton("clothes", QMessageBox::AcceptRole));
+        QPushButton *button5 = (box2->addButton("makeup", QMessageBox::AcceptRole));
+        QPushButton *button6 = (box2->addButton("ornament", QMessageBox::AcceptRole));
+        QPushButton *button7 = (box2->addButton("digital", QMessageBox::AcceptRole));
+        QPushButton *button8 = (box2->addButton("other", QMessageBox::AcceptRole));
+        box2->setDefaultButton(QMessageBox::Cancel);
+        box2->setStyleSheet("* { button-layout: 0 }");
         box2->exec();
         int attr;
         if(box2->clickedButton() == button1) attr = 1;
@@ -288,6 +257,46 @@ void adminWidget::on_srchcommoButton_clicked()
         }
         sc_tw->show();
     }
+    else if(msgBox->clickedButton() == idbutton)
+    { //按卖家ID搜索
+        bool ok;
+        QString sid = QInputDialog::getText(this,"Search commodity","Please input the sellerID:",
+                                            QLineEdit::Normal,"",&ok); //输入卖家ID
+        if(!ok)
+            return;
+        sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowTitle("Search commodity");
+        sc_tw->resize(1350,450);
+        sc_tw->setColumnCount(9);
+        QStringList header;
+        header << "commodityID" << "commodityname" << "price" << "number" << "attribute"
+              << "description" << "sellerID" << "addedDate" << "state";
+        sc_tw->setHorizontalHeaderLabels(header);
+        sc_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        sc_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        CArray carr;
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        for(int i = 0; i < carr.length(); ++i)
+        {
+           if (carr[i].get_sid() == sid.toStdString())
+           {
+               int rowCount = sc_tw->rowCount();
+               sc_tw->insertRow(rowCount);
+               sc_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(carr[i].get_id())));
+               sc_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(carr[i].get_name())));
+               sc_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(carr[i].get_price(), 'f', 1)));
+               sc_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(carr[i].get_num())));
+               sc_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(carr[i].get_attr())));
+               sc_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(carr[i].get_desc())));
+               sc_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(carr[i].get_sid())));
+               sc_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(carr[i].get_date())));
+               sc_tw->setItem(rowCount, 8, new QTableWidgetItem(QString::fromStdString(carr[i].get_state())));
+           }
+        }
+        sc_tw->show();
+
+    }
     else
         return;
 }
@@ -330,6 +339,126 @@ void adminWidget::on_rmvcommoButton_clicked()
     }
     if(i == carr.length())
         QMessageBox::warning(this, "Remove commodity", "This commodity doesn't exist or has already be removed!");
+}
+
+void adminWidget::on_vieworderButton_clicked()
+{
+    vo_tw = new QTableWidget;
+    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vo_tw->setWindowTitle("View orders");
+    vo_tw->resize(1200,450);
+    vo_tw->setColumnCount(8);
+    QStringList header;
+    header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "sellerID" << "buyerID" << "state";
+    vo_tw->setHorizontalHeaderLabels(header);
+    vo_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    vo_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    OArray oarr;
+    oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+    for(int i = 0; i < oarr.length(); ++i)
+    {
+        int rowCount = vo_tw->rowCount();
+        vo_tw->insertRow(rowCount);
+        vo_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
+        vo_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
+        vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
+        vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
+        vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+        vo_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_sellerid())));
+        vo_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
+        vo_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
+    }
+    vo_tw->show();
+}
+
+void adminWidget::on_srchorderButton_clicked()
+{
+    QMessageBox* msgBox = new QMessageBox;
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+    msgBox->setWindowTitle("Search order");
+    msgBox->setText("Please chooose how to search:");
+    msgBox->setStandardButtons(QMessageBox::Cancel);
+    QPushButton *bidbutton = (msgBox->addButton("buyerID", QMessageBox::AcceptRole));
+    QPushButton *sidbutton = (msgBox->addButton("sellerID", QMessageBox::AcceptRole));
+    msgBox->setDefaultButton(QMessageBox::Cancel);
+    msgBox->setStyleSheet("* { button-layout: 0 }");
+    msgBox->exec();
+    if(msgBox->clickedButton() == bidbutton)
+    { //按买家ID搜索
+        bool ok;
+        QString buyerid = QInputDialog::getText(this,"Search order","Please input the buyerID:",
+                                            QLineEdit::Normal,"",&ok); //输入买家ID
+        if(!ok)
+            return;
+        so_tw = new QTableWidget;
+        so_tw->setAttribute(Qt::WA_DeleteOnClose);
+        so_tw->setWindowTitle("Search order");
+        so_tw->resize(1200,450);
+        so_tw->setColumnCount(8);
+        QStringList header;
+        header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "sellerID" << "buyerID" << "state";
+        so_tw->setHorizontalHeaderLabels(header);
+        so_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        so_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        OArray oarr;
+        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        for(int i = 0; i < oarr.length(); ++i)
+        {
+           if (oarr[i].get_buyerid() == buyerid.toStdString())
+           {
+               int rowCount = so_tw->rowCount();
+               so_tw->insertRow(rowCount);
+               so_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
+               so_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
+               so_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
+               so_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
+               so_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+               so_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_sellerid())));
+               so_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
+               so_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
+           }
+        }
+        so_tw->show();
+    }
+    else if(msgBox->clickedButton() == sidbutton)
+    { //按卖家ID搜索
+        bool ok;
+        QString sellerid = QInputDialog::getText(this,"Search order","Please input the sellerID:",
+                                            QLineEdit::Normal,"",&ok); //输入卖家ID
+        if(!ok)
+            return;
+        so_tw = new QTableWidget;
+        so_tw->setAttribute(Qt::WA_DeleteOnClose);
+        so_tw->setWindowTitle("Search order");
+        so_tw->resize(1200,450);
+        so_tw->setColumnCount(8);
+        QStringList header;
+        header << "orderID" << "commodityID" << "unitPrice" << "bidPrice" << "date" << "sellerID" << "buyerID" << "state";
+        so_tw->setHorizontalHeaderLabels(header);
+        so_tw->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        so_tw->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        OArray oarr;
+        oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
+        for(int i = 0; i < oarr.length(); ++i)
+        {
+           if (oarr[i].get_sellerid() == sellerid.toStdString())
+           {
+               int rowCount = so_tw->rowCount();
+               so_tw->insertRow(rowCount);
+               so_tw->setItem(rowCount, 0, new QTableWidgetItem(QString::fromStdString(oarr[i].get_oid())));
+               so_tw->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(oarr[i].get_cid())));
+               so_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
+               so_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
+               so_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+               so_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_sellerid())));
+               so_tw->setItem(rowCount, 6, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
+               so_tw->setItem(rowCount, 7, new QTableWidgetItem(QString::fromStdString(oarr[i].get_state())));
+           }
+        }
+        so_tw->show();
+    }
+    else
+        return;
 }
 
 void adminWidget::on_logoutButton_clicked()

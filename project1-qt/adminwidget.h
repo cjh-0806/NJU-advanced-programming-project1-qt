@@ -23,13 +23,15 @@ private slots:
 
     void on_banuserButton_clicked();
 
-    void on_vieworderButton_clicked();
-
     void on_viewcommoButton_clicked();
 
     void on_srchcommoButton_clicked();
 
     void on_rmvcommoButton_clicked();
+
+    void on_vieworderButton_clicked();
+
+    void on_srchorderButton_clicked();
 
     void on_logoutButton_clicked();
 
@@ -39,6 +41,7 @@ private:
     QTableWidget* vc_tw;
     QTableWidget* sc_tw;
     QTableWidget* vo_tw;
+    QTableWidget* so_tw;
 };
 
 #endif // ADMINWIDGET_H
