@@ -52,7 +52,6 @@ void buyerWidget::on_returnButton_clicked()
 void buyerWidget::on_viewcommoButton_clicked()
 {
     vc_tw = new QTableWidget;
-    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
     vc_tw->setWindowTitle("View commodity");
     vc_tw->resize(1050,450);
     vc_tw->setColumnCount(7);
@@ -84,7 +83,6 @@ void buyerWidget::on_viewcommoButton_clicked()
 void buyerWidget::on_srchcommoButton_clicked()
 {
     QMessageBox* msgBox = new QMessageBox;
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
     msgBox->setWindowTitle("Search commodity");
     msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
@@ -102,7 +100,6 @@ void buyerWidget::on_srchcommoButton_clicked()
         if(!ok)
             return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -133,7 +130,6 @@ void buyerWidget::on_srchcommoButton_clicked()
     else if(msgBox->clickedButton() == attrbutton)
     { //按属性搜索
         QMessageBox* box2 = new QMessageBox;
-        box2->setAttribute(Qt::WA_DeleteOnClose);
         box2->setWindowTitle("Search commodity");
         box2->setText("Please choose the attribute you want to search:");
         box2->setStandardButtons(QMessageBox::Cancel);
@@ -159,7 +155,6 @@ void buyerWidget::on_srchcommoButton_clicked()
         else if(box2->clickedButton() == button8) attr = 8;
         else return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -195,7 +190,6 @@ void buyerWidget::on_srchcommoButton_clicked()
         if(!ok)
             return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -259,7 +253,6 @@ void buyerWidget::on_auctionButton_clicked()
             + "\nattribute:" + QString::fromStdString(carr[i].get_attr())
             + "\ndescription:" + QString::fromStdString(carr[i].get_desc());
     QMessageBox* msgBox = new QMessageBox;
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
     msgBox->setWindowTitle("Auction");
     msgBox->setText(text);
     msgBox->setStandardButtons(QMessageBox::Close);
@@ -280,6 +273,8 @@ void buyerWidget::on_auctionButton_clicked()
                 QMessageBox::warning(this, "Auction", "You have already bid for this commodity!");
                 return;
             }
+        uarr.clear();
+        uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
         if(uarr[index].get_balance() <= carr[i].get_price())
         {
             QMessageBox::warning(this, "Auction", "Your balance is insufficient!");
@@ -289,6 +284,13 @@ void buyerWidget::on_auctionButton_clicked()
                                                   carr[i].get_price(),uarr[index].get_balance(),1,&ok); //出价
         if(!ok)
             return;
+        carr.clear();
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        if(carr[i].get_state() == "removed")
+        {
+            QMessageBox::warning(this, "Auction", "This commodity was removed!");
+            return;
+        }
         OArray oarr;
         oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
         stringstream ss;
@@ -314,6 +316,8 @@ void buyerWidget::on_auctionButton_clicked()
             QMessageBox::warning(this, "Auction", "You haven't bid for this commodity!");
             return;
         }
+        uarr.clear();
+        uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
         if(uarr[index].get_balance() <= carr[i].get_price())
         {
             QMessageBox::warning(this, "Auction", "Your balance is insufficient!");
@@ -323,6 +327,13 @@ void buyerWidget::on_auctionButton_clicked()
                                                           carr[i].get_price(),uarr[index].get_balance(),1,&ok);
         if(!ok)
             return;
+        carr.clear();
+        carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+        if(carr[i].get_state() == "removed")
+        {
+            QMessageBox::warning(this, "Auction", "This commodity was removed!");
+            return;
+        }
         oarr[j].set_bid(bidPrice);
         oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
         QMessageBox::information(this, "INFOMATION", "Modify bid successfully!");
@@ -336,6 +347,7 @@ void buyerWidget::on_auctionButton_clicked()
                 oarr[j].set_state("canceled");
                 oarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
                 QMessageBox::information(this, "INFOMATION", "Cancel bid successfully!");
+                break;
             }
         if(j == oarr.length())
         {
@@ -348,7 +360,6 @@ void buyerWidget::on_auctionButton_clicked()
 void buyerWidget::on_vieworderButton_clicked()
 {
     vo_tw = new QTableWidget;
-    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders";

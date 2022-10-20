@@ -18,6 +18,7 @@ void userWidget::closeEvent(QCloseEvent *event)
     if(b_w) b_w->close();
     if(s_w) s_w->close();
     if(ui_w) ui_w->close();
+    emit sendReshowSignal();
     event->accept();
 }
 

@@ -19,13 +19,15 @@ public:
     void stopThread();  //停止线程
 
 private slots:
-    void on_registerButton_clicked();
+    void on_uloginButton_clicked();
 
-    void on_exitButton_clicked();
+    void on_registerButton_clicked();
 
     void on_aloginButton_clicked();
 
-    void on_uloginButton_clicked();
+    void on_exitButton_clicked();
+
+    void reshow();
 
 private:
     Ui::Widget *ui;

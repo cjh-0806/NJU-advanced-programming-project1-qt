@@ -4,8 +4,8 @@
 #include <QThread>
 #include <QTimer>
 
-#define TIMEOUT 1*60*1000 //结算订单时间间隔：1分钟
-#define INTERVAL 5*60 //拍卖结算时间间隔：5分钟
+#define TIMEOUT 1 * 60*1000 //单位：毫秒 结算订单时间间隔：1min
+#define INTERVAL 1 * 60 //单位：秒 拍卖结算时间间隔：24h
 
 class myThread : public QThread
 {
@@ -13,7 +13,7 @@ class myThread : public QThread
 public:
     myThread(QThread *parent = nullptr);
     ~myThread();
-    void run(); //QThread的虚函数，线程处理函数，不能直接调用，通过start()间接调用
+    void run(); //QThread的虚函数，线程处理函数，通过start()间接调用
 
 private:
     QTimer *timer;

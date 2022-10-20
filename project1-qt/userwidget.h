@@ -33,6 +33,7 @@ private slots:
 
 signals:
     void sendUserIndex(int);
+    void sendReshowSignal();
 
 private:
     Ui::userWidget *ui;

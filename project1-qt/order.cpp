@@ -138,3 +138,8 @@ void OArray::file2array(const char* src)
     }
     fin.close();
 }
+
+void OArray::clear()
+{
+    size = 0;
+}

@@ -11,6 +11,10 @@ uloginWidget::uloginWidget(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
+    //回车
+    ui->usernameLineEdit->setFocus();
+    connect(ui->usernameLineEdit,SIGNAL(returnPressed()),ui->pswdLineEdit,SLOT(setFocus()));
+    connect(ui->pswdLineEdit,SIGNAL(returnPressed()),this, SLOT(on_commitButton_clicked()));
 }
 
 uloginWidget::~uloginWidget()

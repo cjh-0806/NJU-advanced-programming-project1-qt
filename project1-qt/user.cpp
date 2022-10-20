@@ -140,3 +140,8 @@ void UArray::file2array(const char* src)
     }
     fin.close();
 }
+
+void UArray::clear()
+{
+    size = 0;
+}

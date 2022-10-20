@@ -16,9 +16,15 @@ rlscommoWidget::rlscommoWidget(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
-    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 10000000, 1));
-    ui->numLineEdit->setValidator(new QIntValidator(0, 1000000));
-    ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,200}")));
+    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 1000000, 1));
+    ui->numLineEdit->setValidator(new QIntValidator(0, 1000));
+    ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9 ]{1,200}")));
+    //回车
+    ui->cnameLineEdit->setFocus();
+    connect(ui->cnameLineEdit,SIGNAL(returnPressed()),ui->priceLineEdit,SLOT(setFocus()));
+    connect(ui->priceLineEdit,SIGNAL(returnPressed()),ui->numLineEdit,SLOT(setFocus()));
+    connect(ui->numLineEdit,SIGNAL(returnPressed()),ui->descLineEdit,SLOT(setFocus()));
+    connect(ui->descLineEdit,SIGNAL(returnPressed()),this,SLOT(on_commitButton_2_clicked()));
 }
 
 rlscommoWidget::~rlscommoWidget()
@@ -39,6 +45,11 @@ void rlscommoWidget::on_commitButton_2_clicked()
     QString price = ui->priceLineEdit->text();
     QString num = ui->numLineEdit->text();
     QString desc = ui->descLineEdit->text();
+    if(cname.isEmpty() || price.isEmpty() || num.isEmpty() || desc.isEmpty())
+    {
+        QMessageBox::warning(this, "WARNING", "The input can't be empty!");
+        return;
+    }
     QButtonGroup *btnGroup = new QButtonGroup;
     btnGroup->addButton(ui->lifeButton, 0);
     btnGroup->addButton(ui->studyButton, 1);
@@ -59,6 +70,10 @@ void rlscommoWidget::on_commitButton_2_clicked()
     case 5: attr = 6; break;
     case 6: attr = 7; break;
     case 7: attr = 8; break;
+    default: {
+        QMessageBox::warning(this, "WARNING", "Please choose one attribute!");
+        return;
+    }break;
     }
     stringstream ss;
     ss << 'M' << setfill('0') << setw(3) << carr.length() + 1;

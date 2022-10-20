@@ -2,6 +2,7 @@
 #include "ui_mdfuserwidget.h"
 #include "user.h"
 
+#include <QRegExpValidator>
 #include <QMessageBox>
 
 mdfuserWidget::mdfuserWidget(QWidget *parent) :
@@ -10,6 +11,16 @@ mdfuserWidget::mdfuserWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
+    ui->usernameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{1,10}")));
+    ui->pswdLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-z0-9]{1,20}")));
+    ui->phonenumLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,20}")));
+    ui->addrLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,40}")));
+    //回车
+    ui->usernameLineEdit->setFocus();
+    connect(ui->usernameLineEdit,SIGNAL(returnPressed()),ui->pswdLineEdit,SLOT(setFocus()));
+    connect(ui->pswdLineEdit,SIGNAL(returnPressed()),ui->phonenumLineEdit,SLOT(setFocus()));
+    connect(ui->phonenumLineEdit,SIGNAL(returnPressed()),ui->addrLineEdit,SLOT(setFocus()));
+    connect(ui->addrLineEdit,SIGNAL(returnPressed()),this,SLOT(on_commitButton_clicked()));
 }
 
 mdfuserWidget::~mdfuserWidget()

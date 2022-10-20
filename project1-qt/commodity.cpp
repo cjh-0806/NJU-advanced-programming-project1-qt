@@ -149,3 +149,8 @@ void CArray::file2array(const char* src)
     }
     fin.close();
 }
+
+void CArray::clear()
+{
+    size = 0;
+}

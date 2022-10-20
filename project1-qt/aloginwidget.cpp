@@ -11,6 +11,10 @@ aloginWidget::aloginWidget(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
+    //回车
+    ui->adminnameLineEdit->setFocus();
+    connect(ui->adminnameLineEdit,SIGNAL(returnPressed()),ui->pswdLineEdit,SLOT(setFocus()));
+    connect(ui->pswdLineEdit,SIGNAL(returnPressed()),this, SLOT(on_commitButton_clicked()));
 }
 
 aloginWidget::~aloginWidget()
@@ -28,6 +32,7 @@ void aloginWidget::on_commitButton_clicked()
         this->close();
         adminWidget* ac_w = new adminWidget;
         ac_w->show();
+        //connect(ac_w, SIGNAL(sendReshowSignal))
     }
     else
         QMessageBox::warning(this, "WARNING", "Administrator name or password is wrong!", QMessageBox::Close);

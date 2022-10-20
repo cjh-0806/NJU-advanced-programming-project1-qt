@@ -78,6 +78,13 @@ void sellerWidget::on_rmvcommoButton_clicked()
                     + "\ndescription:" + QString::fromStdString(carr[i].get_desc());
             if (QMessageBox::Yes == QMessageBox::question(this, "Are you sure to remove this commodity?", text))
             { //确认下架商品
+                carr.clear();
+                carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+                if(carr[i].get_state() == "removed")
+                {
+                    QMessageBox::warning(this, "Remove commodity", "This commodity has already been removed!");
+                    return;
+                }
                 carr[i].set_state("removed");
                 OArray oarr;
                 oarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/order.txt");
@@ -126,7 +133,6 @@ void sellerWidget::on_mdfinfoButton_clicked()
 void sellerWidget::on_viewcommoButton_clicked()
 {
     vc_tw = new QTableWidget;
-    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
     vc_tw->setWindowTitle("View released commodity");
     vc_tw->resize(1200,450);
     vc_tw->setColumnCount(8);
@@ -162,7 +168,6 @@ void sellerWidget::on_viewcommoButton_clicked()
 void sellerWidget::on_vieworderButton_clicked()
 {
     vo_tw = new QTableWidget;
-    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders(finished)";

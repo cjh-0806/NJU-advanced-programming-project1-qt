@@ -53,7 +53,7 @@ void userinfoWidget::on_rechargeButton_clicked()
 {
     bool ok;
     double bidPrice = QInputDialog::getDouble(this,"Recharge","Please input the amount you want to recharge:",0,
-                                              0,10000000,1,&ok); //一千万不能再多了
+                                              0,1000000,1,&ok); //一百万不能再多了
     if(!ok)
         return;
     UArray uarr;
@@ -66,6 +66,8 @@ void userinfoWidget::on_rechargeButton_clicked()
     bidPrice += uarr[index].get_balance();
     uarr[index].set_balance(bidPrice);
     uarr.array2file("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
+    QString text = "Recharge successfully!\nYour balance:" + QString::number(uarr[index].get_balance(),'f',1);
+    QMessageBox::about(this, "Recharge", text);
 }
 
 void userinfoWidget::on_mdfinfoButton_clicked()

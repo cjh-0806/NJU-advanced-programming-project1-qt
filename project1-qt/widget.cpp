@@ -2,7 +2,9 @@
 #include "ui_widget.h"
 #include "regiwidget.h"
 #include "uloginwidget.h"
+#include "userwidget.h"
 #include "aloginwidget.h"
+#include "adminwidget.h"
 #include "commodity.h"
 #include "order.h"
 
@@ -29,9 +31,15 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::reshow()
+{
+    this->show();
+}
+
 void Widget::on_uloginButton_clicked()
 {
     uloginWidget* ul_w = new uloginWidget;
+    this->hide();
     ul_w->show();
 }
 
@@ -44,6 +52,7 @@ void Widget::on_registerButton_clicked()
 void Widget::on_aloginButton_clicked()
 {
     aloginWidget* al_w = new aloginWidget;
+    this->hide();
     al_w->show();
 }
 

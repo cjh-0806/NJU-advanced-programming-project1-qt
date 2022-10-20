@@ -42,6 +42,9 @@ private:
     QTableWidget* sc_tw;
     QTableWidget* vo_tw;
     QTableWidget* so_tw;
+
+signals:
+    void sendReshowSignal();
 };
 
 #endif // ADMINWIDGET_H

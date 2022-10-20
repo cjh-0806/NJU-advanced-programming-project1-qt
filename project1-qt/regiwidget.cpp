@@ -20,7 +20,12 @@ regiWidget::regiWidget(QWidget *parent) :
     ui->pswdLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-z0-9]{1,20}")));
     ui->phonenumLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,20}")));
     ui->addrLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,40}")));
-
+    //回车
+    ui->usernameLineEdit->setFocus();
+    connect(ui->usernameLineEdit,SIGNAL(returnPressed()),ui->pswdLineEdit,SLOT(setFocus()));
+    connect(ui->pswdLineEdit,SIGNAL(returnPressed()),ui->phonenumLineEdit,SLOT(setFocus()));
+    connect(ui->phonenumLineEdit,SIGNAL(returnPressed()),ui->addrLineEdit,SLOT(setFocus()));
+    connect(ui->addrLineEdit,SIGNAL(returnPressed()),this,SLOT(on_commitButton_clicked()));
 }
 
 regiWidget::~regiWidget()
@@ -36,6 +41,11 @@ void regiWidget::on_commitButton_clicked()
     QString pswd = ui->pswdLineEdit->text();
     QString phonenum = ui->phonenumLineEdit->text();
     QString addr = ui->addrLineEdit->text();
+    if(username.isEmpty() || pswd.isEmpty() || phonenum.isEmpty() || addr.isEmpty())
+    {
+        QMessageBox::warning(this, "WARNING", "The input can't be empty!");
+        return;
+    }
     stringstream ss;
     ss << 'U' << setfill('0') << setw(3) << uarr.length() + 1;
     string userID = ss.str();

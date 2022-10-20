@@ -21,11 +21,12 @@ adminWidget::adminWidget(QWidget *parent) :
 
 void adminWidget::closeEvent(QCloseEvent *event)
 {
-    if(vu_tw) {vu_tw->close();qDebug() << "close vu_tw" << endl;}
+    if(vu_tw) vu_tw->close();
     if(vc_tw) vc_tw->close();
     if(sc_tw) sc_tw->close();
     if(vo_tw) vo_tw->close();
     if(so_tw) so_tw->close();
+    emit sendReshowSignal();
     event->accept();
 }
 
@@ -42,7 +43,6 @@ adminWidget::~adminWidget()
 void adminWidget::on_viewuserButton_clicked()
 {
     vu_tw = new QTableWidget;
-    vu_tw->setAttribute(Qt::WA_DeleteOnClose);
     vu_tw->setWindowTitle("View users");
     vu_tw->resize(900,450);
     vu_tw->setColumnCount(6);
@@ -116,7 +116,6 @@ void adminWidget::on_banuserButton_clicked()
 void adminWidget::on_viewcommoButton_clicked()
 {
     vc_tw = new QTableWidget;
-    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
     vc_tw->setWindowTitle("View commodities");
     vc_tw->resize(1350,450);
     vc_tw->setColumnCount(9);
@@ -148,7 +147,6 @@ void adminWidget::on_viewcommoButton_clicked()
 void adminWidget::on_srchcommoButton_clicked()
 {
     QMessageBox* msgBox = new QMessageBox;
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
     msgBox->setWindowTitle("Search commodity");
     msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
@@ -166,7 +164,6 @@ void adminWidget::on_srchcommoButton_clicked()
         if(!ok)
             return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -200,7 +197,6 @@ void adminWidget::on_srchcommoButton_clicked()
     else if(msgBox->clickedButton() == attrbutton)
     { //按属性搜索
         QMessageBox* box2 = new QMessageBox;
-        box2->setAttribute(Qt::WA_DeleteOnClose);
         box2->setWindowTitle("Search commodity");
         box2->setText("Please choose the attribute you want to search:");
         box2->setStandardButtons(QMessageBox::Cancel);
@@ -226,7 +222,6 @@ void adminWidget::on_srchcommoButton_clicked()
         else if(box2->clickedButton() == button8) attr = 8;
         else return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Users");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -265,7 +260,6 @@ void adminWidget::on_srchcommoButton_clicked()
         if(!ok)
             return;
         sc_tw = new QTableWidget;
-        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -344,7 +338,6 @@ void adminWidget::on_rmvcommoButton_clicked()
 void adminWidget::on_vieworderButton_clicked()
 {
     vo_tw = new QTableWidget;
-    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
     vo_tw->setWindowTitle("View orders");
     vo_tw->resize(1200,450);
     vo_tw->setColumnCount(8);
@@ -374,7 +367,6 @@ void adminWidget::on_vieworderButton_clicked()
 void adminWidget::on_srchorderButton_clicked()
 {
     QMessageBox* msgBox = new QMessageBox;
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
     msgBox->setWindowTitle("Search order");
     msgBox->setText("Please chooose how to search:");
     msgBox->setStandardButtons(QMessageBox::Cancel);
@@ -391,7 +383,6 @@ void adminWidget::on_srchorderButton_clicked()
         if(!ok)
             return;
         so_tw = new QTableWidget;
-        so_tw->setAttribute(Qt::WA_DeleteOnClose);
         so_tw->setWindowTitle("Search order");
         so_tw->resize(1200,450);
         so_tw->setColumnCount(8);
@@ -428,7 +419,6 @@ void adminWidget::on_srchorderButton_clicked()
         if(!ok)
             return;
         so_tw = new QTableWidget;
-        so_tw->setAttribute(Qt::WA_DeleteOnClose);
         so_tw->setWindowTitle("Search order");
         so_tw->resize(1200,450);
         so_tw->setColumnCount(8);

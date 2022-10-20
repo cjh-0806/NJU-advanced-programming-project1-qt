@@ -16,9 +16,15 @@ mdfcommoWidget::mdfcommoWidget(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
-    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 10000000, 1));
-    ui->numLineEdit->setValidator(new QIntValidator);
-    ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z ]{1,200}")));
+    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 1000000, 1));
+    ui->numLineEdit->setValidator(new QIntValidator(0, 1000));
+    ui->descLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9 ]{1,200}")));
+    //回车
+    ui->cnameLineEdit->setFocus();
+    connect(ui->cnameLineEdit,SIGNAL(returnPressed()),ui->priceLineEdit,SLOT(setFocus()));
+    connect(ui->priceLineEdit,SIGNAL(returnPressed()),ui->numLineEdit,SLOT(setFocus()));
+    connect(ui->numLineEdit,SIGNAL(returnPressed()),ui->descLineEdit,SLOT(setFocus()));
+    connect(ui->descLineEdit,SIGNAL(returnPressed()),this,SLOT(on_commitButton_2_clicked()));
 }
 
 mdfcommoWidget::~mdfcommoWidget()
@@ -56,6 +62,11 @@ void mdfcommoWidget::on_commitButton_2_clicked()
 {
     CArray carr;
     carr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/commodity.txt");
+    if(carr[index].get_state() == "removed")
+    {
+        QMessageBox::warning(this, "Modify commodity", "This commodity has already been removed!");
+        return;
+    }
     QString cname = ui->cnameLineEdit->text();
     QString price = ui->priceLineEdit->text();
     if(!price.isEmpty() && carr[index].get_price() < price.toFloat())

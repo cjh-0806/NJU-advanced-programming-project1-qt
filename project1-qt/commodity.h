@@ -49,6 +49,7 @@ public:
     CArray(CArray & a);
     ~CArray();
     void push_back(Commodity u); //在数组尾部添加一个元素v
+    void clear(); //清空
     CArray & operator= (const CArray & a); //用于数组对象间的赋值
 
     int length() const { return size; } //返回数组元素个数
