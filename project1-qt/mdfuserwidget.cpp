@@ -52,7 +52,7 @@ void mdfuserWidget::on_commitButton_clicked()
         if(j != index && uarr[j].get_name() == name.toStdString() && uarr[j].get_state() == "active")
         {
             QMessageBox::warning(this, "WARNING", "This username already exists! Please reset your username!");
-            break;
+            return;
         }
     if(!name.isEmpty())
         uarr[index].set_name(name.toStdString());
