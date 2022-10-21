@@ -17,7 +17,6 @@ class userWidget : public QWidget
 
 public:
     explicit userWidget(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent *event);
     ~userWidget();
 
 private slots:
@@ -33,14 +32,10 @@ private slots:
 
 signals:
     void sendUserIndex(int);
-    void sendReshowSignal();
 
 private:
     Ui::userWidget *ui;
     int index;
-    buyerWidget *b_w;
-    sellerWidget *s_w;
-    userinfoWidget *ui_w;
 };
 
 #endif // USERWIDGET_H

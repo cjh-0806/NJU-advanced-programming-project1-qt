@@ -12,37 +12,22 @@
 
 adminWidget::adminWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::adminWidget),
-    vu_tw(nullptr), vc_tw(nullptr), sc_tw(nullptr), vo_tw(nullptr), so_tw(nullptr)
+    ui(new Ui::adminWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
-}
-
-void adminWidget::closeEvent(QCloseEvent *event)
-{
-    if(vu_tw) vu_tw->close();
-    if(vc_tw) vc_tw->close();
-    if(sc_tw) sc_tw->close();
-    if(vo_tw) vo_tw->close();
-    if(so_tw) so_tw->close();
-    emit sendReshowSignal();
-    event->accept();
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 adminWidget::~adminWidget()
 {
     delete ui;
-    delete vu_tw;
-    delete vc_tw;
-    delete sc_tw;
-    delete vo_tw;
-    delete so_tw;
 }
 
 void adminWidget::on_viewuserButton_clicked()
 {
-    vu_tw = new QTableWidget;
+    QTableWidget *vu_tw = new QTableWidget;
+    vu_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vu_tw->setWindowModality(Qt::ApplicationModal);
     vu_tw->setWindowTitle("View users");
     vu_tw->resize(900,450);
     vu_tw->setColumnCount(6);
@@ -115,7 +100,9 @@ void adminWidget::on_banuserButton_clicked()
 
 void adminWidget::on_viewcommoButton_clicked()
 {
-    vc_tw = new QTableWidget;
+    QTableWidget *vc_tw = new QTableWidget;
+    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vc_tw->setWindowModality(Qt::ApplicationModal);
     vc_tw->setWindowTitle("View commodities");
     vc_tw->resize(1350,450);
     vc_tw->setColumnCount(9);
@@ -163,7 +150,9 @@ void adminWidget::on_srchcommoButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入名称
         if(!ok)
             return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -221,7 +210,9 @@ void adminWidget::on_srchcommoButton_clicked()
         else if(box2->clickedButton() == button7) attr = 7;
         else if(box2->clickedButton() == button8) attr = 8;
         else return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Users");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -259,7 +250,9 @@ void adminWidget::on_srchcommoButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入卖家ID
         if(!ok)
             return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1350,450);
         sc_tw->setColumnCount(9);
@@ -337,7 +330,9 @@ void adminWidget::on_rmvcommoButton_clicked()
 
 void adminWidget::on_vieworderButton_clicked()
 {
-    vo_tw = new QTableWidget;
+    QTableWidget *vo_tw = new QTableWidget;
+    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vo_tw->setWindowModality(Qt::ApplicationModal);
     vo_tw->setWindowTitle("View orders");
     vo_tw->resize(1200,450);
     vo_tw->setColumnCount(8);
@@ -382,7 +377,9 @@ void adminWidget::on_srchorderButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入买家ID
         if(!ok)
             return;
-        so_tw = new QTableWidget;
+        QTableWidget *so_tw = new QTableWidget;
+        so_tw->setAttribute(Qt::WA_DeleteOnClose);
+        so_tw->setWindowModality(Qt::ApplicationModal);
         so_tw->setWindowTitle("Search order");
         so_tw->resize(1200,450);
         so_tw->setColumnCount(8);
@@ -418,7 +415,9 @@ void adminWidget::on_srchorderButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入卖家ID
         if(!ok)
             return;
-        so_tw = new QTableWidget;
+        QTableWidget *so_tw = new QTableWidget;
+        so_tw->setAttribute(Qt::WA_DeleteOnClose);
+        so_tw->setWindowModality(Qt::ApplicationModal);
         so_tw->setWindowTitle("Search order");
         so_tw->resize(1200,450);
         so_tw->setColumnCount(8);

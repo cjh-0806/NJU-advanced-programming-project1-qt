@@ -15,7 +15,7 @@ regiWidget::regiWidget(QWidget *parent) :
     ui(new Ui::regiWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
+    //setAttribute(Qt::WA_QuitOnClose, false);
     ui->usernameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{1,10}")));
     ui->pswdLineEdit->setValidator(new QRegExpValidator(QRegExp("[a-z0-9]{1,20}")));
     ui->phonenumLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,20}")));

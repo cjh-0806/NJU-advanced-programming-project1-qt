@@ -10,29 +10,15 @@
 
 sellerWidget::sellerWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::sellerWidget),
-    rc_w(nullptr), mc_w(nullptr), vc_tw(nullptr), vo_tw(nullptr)
+    ui(new Ui::sellerWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
-}
-
-void sellerWidget::closeEvent(QCloseEvent *event)
-{
-    if(rc_w) rc_w->close();
-    if(mc_w) mc_w->close();
-    if(vc_tw) vc_tw->close();
-    if(vo_tw) vo_tw->close();
-    event->accept();
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 sellerWidget::~sellerWidget()
 {
     delete ui;
-    delete rc_w;
-    delete mc_w;
-    delete vc_tw;
-    delete vo_tw;
 }
 
 void sellerWidget::getUserIndex(int i)
@@ -50,7 +36,9 @@ void sellerWidget::on_returnButton_clicked()
 
 void sellerWidget::on_rlscommoButton_clicked()
 {
-    rc_w = new rlscommoWidget;
+    rlscommoWidget *rc_w = new rlscommoWidget;
+    rc_w->setAttribute(Qt::WA_DeleteOnClose);
+    rc_w->setWindowModality(Qt::ApplicationModal);
     connect(this,SIGNAL(sendUserIndex(int)),rc_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     rc_w->show();
@@ -124,7 +112,9 @@ void sellerWidget::on_mdfinfoButton_clicked()
         QMessageBox::warning(this, "Modify commodity information", "This commodity doesn't exist!");
         return;
     }
-    mc_w = new mdfcommoWidget;
+    mdfcommoWidget *mc_w = new mdfcommoWidget;
+    mc_w->setAttribute(Qt::WA_DeleteOnClose);
+    mc_w->setWindowModality(Qt::ApplicationModal);
     connect(this, SIGNAL(sendCommodityIndex(int)),mc_w,SLOT(getCommodityIndex(int)));
     emit sendCommodityIndex(i);
     mc_w->show();
@@ -132,7 +122,9 @@ void sellerWidget::on_mdfinfoButton_clicked()
 
 void sellerWidget::on_viewcommoButton_clicked()
 {
-    vc_tw = new QTableWidget;
+    QTableWidget *vc_tw = new QTableWidget;
+    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vc_tw->setWindowModality(Qt::ApplicationModal);
     vc_tw->setWindowTitle("View released commodity");
     vc_tw->resize(1200,450);
     vc_tw->setColumnCount(8);
@@ -167,7 +159,9 @@ void sellerWidget::on_viewcommoButton_clicked()
 
 void sellerWidget::on_vieworderButton_clicked()
 {
-    vo_tw = new QTableWidget;
+    QTableWidget *vo_tw = new QTableWidget;
+    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vo_tw->setWindowModality(Qt::ApplicationModal);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders(finished)";
@@ -192,7 +186,7 @@ void sellerWidget::on_vieworderButton_clicked()
             vo_tw->setItem(rowCount, 2, new QTableWidgetItem(QString::number(oarr[i].get_price(), 'f', 1)));
             vo_tw->setItem(rowCount, 3, new QTableWidgetItem(QString::number(oarr[i].get_bid(), 'f', 1)));
             vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_buyerid())));
-            vo_tw->setItem(rowCount, 4, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
+            vo_tw->setItem(rowCount, 5, new QTableWidgetItem(QString::fromStdString(oarr[i].get_date())));
         }
     }
     vo_tw->show();

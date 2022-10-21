@@ -13,27 +13,15 @@
 
 buyerWidget::buyerWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::buyerWidget),
-    vc_tw(nullptr), sc_tw(nullptr), vo_tw(nullptr)
+    ui(new Ui::buyerWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
-}
-
-void buyerWidget::closeEvent(QCloseEvent *event)
-{
-    if(vc_tw) vc_tw->close();
-    if(sc_tw) sc_tw->close();
-    if(vo_tw) vo_tw->close();
-    event->accept();
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 buyerWidget::~buyerWidget()
 {
     delete ui;
-    delete vc_tw;
-    delete sc_tw;
-    delete vo_tw;
 }
 
 void buyerWidget::getUserIndex(int i)
@@ -51,7 +39,9 @@ void buyerWidget::on_returnButton_clicked()
 
 void buyerWidget::on_viewcommoButton_clicked()
 {
-    vc_tw = new QTableWidget;
+    QTableWidget *vc_tw = new QTableWidget;
+    vc_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vc_tw->setWindowModality(Qt::ApplicationModal);
     vc_tw->setWindowTitle("View commodity");
     vc_tw->resize(1050,450);
     vc_tw->setColumnCount(7);
@@ -99,7 +89,9 @@ void buyerWidget::on_srchcommoButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入名称
         if(!ok)
             return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -154,7 +146,9 @@ void buyerWidget::on_srchcommoButton_clicked()
         else if(box2->clickedButton() == button7) attr = 7;
         else if(box2->clickedButton() == button8) attr = 8;
         else return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -189,7 +183,9 @@ void buyerWidget::on_srchcommoButton_clicked()
                                             QLineEdit::Normal,"",&ok); //输入卖家ID
         if(!ok)
             return;
-        sc_tw = new QTableWidget;
+        QTableWidget *sc_tw = new QTableWidget;
+        sc_tw->setAttribute(Qt::WA_DeleteOnClose);
+        sc_tw->setWindowModality(Qt::ApplicationModal);
         sc_tw->setWindowTitle("Search commodity");
         sc_tw->resize(1050,450);
         sc_tw->setColumnCount(7);
@@ -359,7 +355,9 @@ void buyerWidget::on_auctionButton_clicked()
 
 void buyerWidget::on_vieworderButton_clicked()
 {
-    vo_tw = new QTableWidget;
+    QTableWidget *vo_tw = new QTableWidget;
+    vo_tw->setAttribute(Qt::WA_DeleteOnClose);
+    vo_tw->setWindowModality(Qt::ApplicationModal);
     UArray uarr;
     uarr.file2array("/home/cjh/NJU-advanced-programming-project1-qt/user.txt");
     QString title = QString::fromStdString(uarr[index].get_name()) + "'s history orders";

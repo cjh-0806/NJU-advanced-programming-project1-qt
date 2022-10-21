@@ -21,7 +21,6 @@ private slots:
 
     void on_cancelButton_clicked();
 
-
 private:
     Ui::regiWidget *ui;
 };

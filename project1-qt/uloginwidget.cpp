@@ -9,7 +9,7 @@ uloginWidget::uloginWidget(QWidget *parent) :
     ui(new Ui::uloginWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
+    //setAttribute(Qt::WA_QuitOnClose, false);
     ui->pswdLineEdit->setEchoMode(QLineEdit::Password);//密码显示
     //回车
     ui->usernameLineEdit->setFocus();
@@ -39,10 +39,12 @@ void uloginWidget::on_commitButton_clicked()
     else
     {
         this->close();
-        userWidget* ul_w = new userWidget;
-        connect(this,SIGNAL(sendUserIndex(int)),ul_w,SLOT(getUserIndex(int)));
+        userWidget* u_w = new userWidget;
+        u_w->setAttribute(Qt::WA_DeleteOnClose);
+        u_w->setWindowModality(Qt::ApplicationModal);
+        connect(this,SIGNAL(sendUserIndex(int)),u_w,SLOT(getUserIndex(int)));
         emit sendUserIndex(i);
-        ul_w->show();
+        u_w->show();
     }
 
 }

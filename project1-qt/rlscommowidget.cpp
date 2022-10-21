@@ -14,7 +14,7 @@ rlscommoWidget::rlscommoWidget(QWidget *parent) :
     ui(new Ui::rlscommoWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
+    //setAttribute(Qt::WA_QuitOnClose, false);
     ui->cnameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{1,20}")));
     ui->priceLineEdit->setValidator(new QDoubleValidator(0, 1000000, 1));
     ui->numLineEdit->setValidator(new QIntValidator(0, 1000));

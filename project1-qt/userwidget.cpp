@@ -2,32 +2,19 @@
 #include "ui_userwidget.h"
 
 #include <QMessageBox>
-#include <QCloseEvent>
+#include <QDebug>
 
 userWidget::userWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::userWidget),
-    b_w(nullptr), s_w(nullptr), ui_w(nullptr)
+    ui(new Ui::userWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
-}
-
-void userWidget::closeEvent(QCloseEvent *event)
-{
-    if(b_w) b_w->close();
-    if(s_w) s_w->close();
-    if(ui_w) ui_w->close();
-    emit sendReshowSignal();
-    event->accept();
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 userWidget::~userWidget()
 {
     delete ui;
-    delete b_w;
-    delete s_w;
-    delete ui_w;
 }
 
 void userWidget::getUserIndex(int i)
@@ -40,7 +27,9 @@ void userWidget::getUserIndex(int i)
 
 void userWidget::on_buyerButton_clicked()
 {
-    b_w = new buyerWidget;
+    buyerWidget *b_w = new buyerWidget;
+    b_w->setAttribute(Qt::WA_DeleteOnClose);
+    b_w->setWindowModality(Qt::ApplicationModal);
     connect(this,SIGNAL(sendUserIndex(int)),b_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     b_w->show();
@@ -48,7 +37,9 @@ void userWidget::on_buyerButton_clicked()
 
 void userWidget::on_sellerButton_clicked()
 {
-    s_w = new sellerWidget;
+    sellerWidget *s_w = new sellerWidget;
+    s_w->setAttribute(Qt::WA_DeleteOnClose);
+    s_w->setWindowModality(Qt::ApplicationModal);
     connect(this,SIGNAL(sendUserIndex(int)),s_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     s_w->show();
@@ -56,7 +47,9 @@ void userWidget::on_sellerButton_clicked()
 
 void userWidget::on_infoButton_clicked()
 {
-    ui_w = new userinfoWidget;
+    userinfoWidget *ui_w = new userinfoWidget;
+    ui_w->setAttribute(Qt::WA_DeleteOnClose);
+    ui_w->setWindowModality(Qt::ApplicationModal);
     connect(this,SIGNAL(sendUserIndex(int)),ui_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     ui_w->show();

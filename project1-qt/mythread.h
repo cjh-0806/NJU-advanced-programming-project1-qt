@@ -5,7 +5,7 @@
 #include <QTimer>
 
 #define TIMEOUT 1 * 60*1000 //单位：毫秒 结算订单时间间隔：1min
-#define INTERVAL 1 * 60 //单位：秒 拍卖结算时间间隔：24h
+#define INTERVAL 10 * 60 //单位：秒 拍卖结算时间间隔：10min
 
 class myThread : public QThread
 {

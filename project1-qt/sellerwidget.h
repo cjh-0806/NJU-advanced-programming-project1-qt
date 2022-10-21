@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QTableWidget>
-#include <QCloseEvent>
 
 #include "user.h"
 #include "commodity.h"
@@ -20,7 +19,6 @@ class sellerWidget : public QWidget
 
 public:
     explicit sellerWidget(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent *event);
     ~sellerWidget();
 
 private slots:
@@ -45,10 +43,6 @@ signals:
 private:
     Ui::sellerWidget *ui;
     int index;
-    rlscommoWidget* rc_w;
-    mdfcommoWidget* mc_w;
-    QTableWidget* vc_tw;
-    QTableWidget* vo_tw;
 };
 
 #endif // SELLERWIDGET_H

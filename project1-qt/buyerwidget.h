@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QTableWidget>
-#include <QCloseEvent>
 
 #include "user.h"
 
@@ -17,7 +16,6 @@ class buyerWidget : public QWidget
 
 public:
     explicit buyerWidget(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent *event);
     ~buyerWidget();
 
 private slots:
@@ -36,9 +34,6 @@ private slots:
 private:
     Ui::buyerWidget *ui;
     int index;
-    QTableWidget* vc_tw;
-    QTableWidget* sc_tw;
-    QTableWidget* vo_tw;
 };
 
 #endif // BUYERWIDGET_H

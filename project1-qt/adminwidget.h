@@ -15,7 +15,6 @@ class adminWidget : public QWidget
 
 public:
     explicit adminWidget(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent *event);
     ~adminWidget();
 
 private slots:
@@ -37,14 +36,6 @@ private slots:
 
 private:
     Ui::adminWidget *ui;
-    QTableWidget* vu_tw;
-    QTableWidget* vc_tw;
-    QTableWidget* sc_tw;
-    QTableWidget* vo_tw;
-    QTableWidget* so_tw;
-
-signals:
-    void sendReshowSignal();
 };
 
 #endif // ADMINWIDGET_H

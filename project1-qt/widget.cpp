@@ -15,7 +15,7 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, true);
+    //setAttribute(Qt::WA_QuitOnClose, true);
     QPixmap pix("/home/cjh/Pictures/auction.jpg");
     ui->picLabel->setPixmap(pix);
 
@@ -39,20 +39,21 @@ void Widget::reshow()
 void Widget::on_uloginButton_clicked()
 {
     uloginWidget* ul_w = new uloginWidget;
-    this->hide();
+    ul_w->setWindowModality(Qt::ApplicationModal);
     ul_w->show();
 }
 
 void Widget::on_registerButton_clicked()
 {
     regiWidget* r_w = new regiWidget;
+    r_w->setWindowModality(Qt::ApplicationModal);
     r_w->show();
 }
 
 void Widget::on_aloginButton_clicked()
 {
     aloginWidget* al_w = new aloginWidget;
-    this->hide();
+    al_w->setWindowModality(Qt::ApplicationModal);
     al_w->show();
 }
 

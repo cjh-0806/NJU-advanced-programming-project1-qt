@@ -6,23 +6,15 @@
 
 userinfoWidget::userinfoWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::userinfoWidget),
-    mu_w(nullptr)
+    ui(new Ui::userinfoWidget)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_QuitOnClose, false);
-}
-
-void userinfoWidget::closeEvent(QCloseEvent *event)
-{
-    if(mu_w) mu_w->close();
-    event->accept();
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 userinfoWidget::~userinfoWidget()
 {
     delete ui;
-    delete mu_w;
 }
 
 void userinfoWidget::getUserIndex(int i)
@@ -72,7 +64,9 @@ void userinfoWidget::on_rechargeButton_clicked()
 
 void userinfoWidget::on_mdfinfoButton_clicked()
 {
-    mu_w = new mdfuserWidget;
+    mdfuserWidget *mu_w = new mdfuserWidget;
+    mu_w->setAttribute(Qt::WA_DeleteOnClose);
+    mu_w->setWindowModality(Qt::ApplicationModal);
     connect(this, SIGNAL(sendUserIndex(int)),mu_w,SLOT(getUserIndex(int)));
     emit sendUserIndex(index);
     mu_w->show();
